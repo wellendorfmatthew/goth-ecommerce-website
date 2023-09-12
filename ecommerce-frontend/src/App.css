@@ -1,0 +1,58 @@
+.top-section {
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@font-face {
+  font-family: Goth;
+  src: url('/GravediggerPersonalUse-K7ayW.ttf') format('truetype');
+}
+
+h2 {
+  font-family: 'Goth';
+  font-size: 40px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#product {
+  margin-left: 300px;
+}
+
+#product, #contact{
+  margin-right: 50px; /* Adjust spacing between links */
+  font-size: 60px;
+}
+
+#about {
+  margin-right: 200px;
+  font-size: 60px;
+}
+
+#cart {
+  margin-right: 50px; /* Adjust spacing between "Cart" and "Sign In" */
+  font-size: 30px;
+}
+
+#sign-in {
+  font-size: 30px;
+}
+
+#product, #contact, #about, #sign-in {
+
+}
+
+#product:hover, #contact:hover, #about:hover, #sign-in:hover {
+  filter: drop-shadow(0 40px 10px rgba(0, 0, 0, 0.7));
+}
