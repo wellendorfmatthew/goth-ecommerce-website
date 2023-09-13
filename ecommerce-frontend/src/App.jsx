@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import Navbar from './Navbar'
+import Navbar from './Components/Navbar'
 
 function App() {
   // Images taken from Amazon products containing clothing accessories
