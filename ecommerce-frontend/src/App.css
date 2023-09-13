@@ -56,3 +56,107 @@ a {
 #product:hover, #contact:hover, #about:hover, #sign-in:hover {
   filter: drop-shadow(0 40px 10px rgba(0, 0, 0, 0.7));
 }
+
+.top-divider {
+  margin-top: -25px;
+}
+
+.logo {
+  margin-bottom: 25px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* This ensures the container takes at least the full viewport height */
+}
+
+.signup-card {
+  display: flex; /* Use flexbox layout */
+  flex-direction: column;
+  height: 700px;
+  width: 500px;
+  border-radius: 16px;
+  margin-bottom: 150px;
+  text-align: center;
+  background-color: white;
+  box-shadow: 0 0 30px 10px rgba(0, 0, 0, .3);
+}
+
+.signup-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-title {
+  font-size: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#email {
+  margin-top: 70px;
+  font-size: 20px;
+  height: 50px;
+  width: 300px;
+}
+
+#password {
+  margin-top: 20px;
+  font-size: 20px;
+  height: 50px;
+  width: 300px;
+}
+
+.signup-button {
+  margin-top: 100px;
+  border-radius: 8px;
+  border: none;
+  height: 60px;
+  width: 340px;
+  padding: 10px 20px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgb(25, 26, 26);
+  color: rgb(226, 231, 231);
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+.signup-button:active {
+  background-color: rgb(52, 53, 53);
+}
+
+.redirect-to-login {
+  margin-top: 50px;
+  text-decoration: none;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
+#image {
+  object-fit: contain;
+}
+.shirt-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1500px;
+  margin-left: 190px;
+  border: 2px solid black;
+}
+
+.shirts {
+  display: flex;
+  flex-direction: row;
+  width: 1500px;
+  margin-left: 190px;
+  margin-right: 190px;
+}
