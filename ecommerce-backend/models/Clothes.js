@@ -20,6 +20,10 @@ const ClothesSchema = new mongoose.Schema({
     stock: {
         type: Number,
         required: true
+    },
+    clothing_type: {
+        type: String,
+        required: true
     }
 })
 

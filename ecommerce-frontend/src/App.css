@@ -49,10 +49,6 @@ a {
   font-size: 30px;
 }
 
-#product, #contact, #about, #sign-in {
-
-}
-
 #product:hover, #contact:hover, #about:hover, #sign-in:hover {
   filter: drop-shadow(0 40px 10px rgba(0, 0, 0, 0.7));
 }
@@ -156,7 +152,36 @@ a {
 .shirts {
   display: flex;
   flex-direction: row;
-  width: 1500px;
-  margin-left: 190px;
-  margin-right: 190px;
+  width: 1504px;
+  margin: 0 auto;
+}
+
+.cards {
+  height: 400px;
+  width: 280px;
+  border: 2px solid black;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  text-align: center;
+}
+
+.cards:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.img-border {
+  width: 200;
+  height: 300px;
+  overflow: hidden;
+}
+
+.gothpants {
+  transition: transform 0.3s;
+}
+
+.gothpants:hover {
+  transform: scale(2.0);
 }
