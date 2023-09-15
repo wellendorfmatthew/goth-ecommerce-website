@@ -94,13 +94,15 @@ function App() {
       </div>
       <div className="shirts">
         {tops.map((tops, index) => {
-          return  <div className="cards" key={index}>
-                    <div className="img-border">
-                      <img className="gothpants" src={tops.image} alt="" width="280" height="300" />
+          if (index < 5) { // Prevent the sections in the front page from showing more than 5 of each item
+            return  <div className="cards" key={index}>
+                      <div className="img-border">
+                        <img className="gothpants" src={tops.image} alt="" width="280" height="300" />
+                      </div>
+                      <p>{tops.name}</p>
+                      <p>${tops.price}</p>
                     </div>
-                    <p>{tops.name}</p>
-                    <p>${tops.price}</p>
-                  </div>
+          }
           })}
       </div>
       <div className="shirt-section">
@@ -108,28 +110,32 @@ function App() {
       </div>
       <div className="shirts">
         {bottoms.map((bottoms, index) => {
-          return  <div className="cards" key={index}>
-                    <div className="img-border">
-                      <img className="gothpants" src={bottoms.image} alt="" width="280" height="300" />
-                    </div>
-                    <p>{bottoms.name}</p>
-                    <p>${bottoms.price}</p>
-                  </div>
-        })}
+            if (index < 5) {
+              return  <div className="cards" key={index}>
+                        <div className="img-border">
+                          <img className="gothpants" src={bottoms.image} alt="" width="280" height="300" />
+                        </div>
+                        <p>{bottoms.name}</p>
+                        <p>${bottoms.price}</p>
+                      </div>
+            }
+            })}
       </div>
       <div className="shirt-section">
         <h2>Accessories</h2>
       </div>
       <div className="shirts">
         {accessories.map((accessories, index) => {
-          return  <div className="cards" key={index}>
-                    <div className="img-border">
-                      <img className="gothpants" src={accessories.image} alt="" width="280" height="300" />
-                    </div>
-                    <p>{accessories.name}</p>
-                    <p>${accessories.price}</p>
-                  </div>
-          })}
+            if (index < 5) {
+              return  <div className="cards" key={index}>
+                        <div className="img-border">
+                          <img className="gothpants" src={accessories.image} alt="" width="280" height="300" />
+                        </div>
+                        <p>{accessories.name}</p>
+                        <p>${accessories.price}</p>
+                      </div>
+            }
+            })}
       </div>
     </>
   )

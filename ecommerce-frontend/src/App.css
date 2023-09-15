@@ -185,3 +185,75 @@ a {
 .gothpants:hover {
   transform: scale(2.0);
 }
+
+.products-layout {
+  display: flex;
+  flex-direction: row;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 15px;
+}
+
+.filter-line {
+  width: 330px;
+  border-top-color: black;
+}
+
+.filter-button {
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  border: 2px solid black;
+  background-color: white;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.filter-button:hover .down-arrow {
+  border-color: white;
+}
+
+.clothes-section {
+  display: grid;
+  grid-template-columns: repeat(5, 284px);
+  grid-gap: 20px;
+  grid-auto-rows: 404px;
+  margin-left: 25px;
+}
+
+.clothes-item {
+  justify-content: start;
+  align-items: center;
+  border: 2px solid black;
+  text-align: center;
+  transition: box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.clothes-item:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.down-arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  vertical-align: middle;
+}
