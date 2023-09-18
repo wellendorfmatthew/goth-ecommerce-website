@@ -95,6 +95,37 @@ const getAccessories = async (req, res) => {
     }
 }
 
+const getInStock = async (req, res) => {
+    try {
+        const clothes = await Clothes.find({stock : { $gt: 0 }});
+        res.status(200).json(clothes);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+}
+
+const getOutOfStock = async (req, res) => {
+    try {
+        const clothes = await Clothes.find({stock : { $eq: 0 }});
+        res.status(200).json(clothes);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+}
+
+const getPriceRange = async (req, res) => {
+    const { minPrice, maxPrice } = req.params;
+
+    const min = parseFloat(minPrice);
+    const max = parseFloat(maxPrice);
+    try {
+        const clothes = await Clothes.find({price : { $gte: min, $lte: max }});
+        res.status(200).json(clothes);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+}
+
 module.exports = {
     createClothes,
     deleteClothes,
@@ -103,5 +134,8 @@ module.exports = {
     getClothingItem,
     getTops,
     getBottoms,
-    getAccessories
+    getAccessories,
+    getInStock,
+    getOutOfStock,
+    getPriceRange
 }

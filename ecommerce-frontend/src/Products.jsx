@@ -25,6 +25,10 @@ const Products = () => {
         getClothes();
     }, []);
 
+    const handleClick = () => {
+        console.log('dis works les go');
+    }
+
     return (  
         <>
             <Navbar/>
@@ -38,7 +42,7 @@ const Products = () => {
                 </div>
                 <div className="clothes-section">
                     {items.map((item, index) => {
-                        return  <div className="clothes-item" key={index}>
+                        return  <div className="clothes-item" key={index} onClick={handleClick}>
                                     <div className="img-border">
                                         <img className="gothpants" src={item.image} alt="" width="280" height="300" />
                                     </div>
