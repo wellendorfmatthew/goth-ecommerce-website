@@ -95,6 +95,77 @@ const getAccessories = async (req, res) => {
     }
 }
 
+const getFilterStock = async (req, res) => {
+    const { inStock, outOfStock } = req.query;
+
+    try {
+        let filter = {};
+
+        if (inStock === 'true' && outOfStock === 'true') {
+            filter.stock = { $gte: 0 };
+        }
+
+        else if (inStock === 'true' && outOfStock === 'false') {
+            filter.stock = { $gt: 0 };
+        }
+
+        else if (inStock === 'false' && outOfStock === 'true') {
+            filter.stock = { $eq: 0 };
+        }
+
+        const filteredStock = await Clothes.find(filter);
+        res.status(200).json(filteredStock);
+    } catch (error) {
+        res.status(200).json({ error: error.message });
+    }
+}
+
+const getFilterClothes = async (req, res) => {
+    const { tops, bottoms, accessories } = req.query;
+
+    try {
+        let filter = {};
+
+        if (tops === 'true' && bottoms === 'false' && accessories === 'false') {
+            filter = { clothing_type : 'tops' };
+        }
+
+        else if (tops === 'false' && bottoms === 'true' && accessories === 'false') {
+            filter = { clothing_type : 'bottoms' };
+        }
+
+        else if (tops === 'false' && bottoms === 'false' && accessories === 'true') {
+            filter = { clothing_type : 'accessories' };
+        }
+
+        else if (tops === 'true' && bottoms === 'true' && accessories === 'false') {
+            filter = { $or: [
+                        { clothing_type : 'tops'},
+                        { clothing_type : 'bottoms' }
+                        ]};
+        }
+
+        else if (tops === 'true' && bottoms === 'false' && accessories === 'true') {
+            filter = { $or: [
+                        { clothing_type : 'tops'},
+                        { clothing_type : 'accessories' }
+                        ]};
+        }
+
+        else if (tops === 'false' && bottoms === 'true' && accessories === 'true') {
+            filter = { $or: [
+                        { clothing_type : 'bottoms'},
+                        { clothing_type : 'accessories' }
+                        ]};
+        }
+
+        const filteredClothes = await Clothes.find(filter);
+        res.status(200).json(filteredClothes);
+    } catch (error) {
+        res.status(200).json({ error: error.message });
+    }
+}
+
 const getInStock = async (req, res) => {
     try {
         const clothes = await Clothes.find({stock : { $gt: 0 }});
@@ -126,6 +197,19 @@ const getPriceRange = async (req, res) => {
     }
 }
 
+const getPrices = async (req, res) => {
+    const { from, to } = req.query;
+
+    const min = parseFloat(from);
+    const max = parseFloat(to);
+    try {
+        const prices = await Clothes.find({ price: { $gte: min, $lte: max } });
+        res.status(200).json(prices);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+}
+
 module.exports = {
     createClothes,
     deleteClothes,
@@ -137,5 +221,8 @@ module.exports = {
     getAccessories,
     getInStock,
     getOutOfStock,
-    getPriceRange
+    getPriceRange,
+    getFilterStock,
+    getFilterClothes,
+    getPrices
 }

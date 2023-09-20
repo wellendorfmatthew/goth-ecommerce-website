@@ -10,7 +10,10 @@ const {
     getAccessories,
     getInStock,
     getOutOfStock,
-    getPriceRange
+    getPriceRange,
+    getFilterStock,
+    getFilterClothes,
+    getPrices
 } = require('../controllers/clothesControllers');
 
 const router = express.Router();
@@ -20,6 +23,9 @@ router.get('/', getClothes);
 router.get('/getTops', getTops);
 router.get('/getBottoms', getBottoms);
 router.get('/getAccessories', getAccessories);
+router.get('/getFilterStock', getFilterStock);
+router.get('/getFilterClothes', getFilterClothes);
+router.get('/getPrices', getPrices)
 router.get('/getInStock', getInStock);
 router.get('/getOutOfStock', getOutOfStock);
 router.get('/:minPrice/:maxPrice', getPriceRange)
