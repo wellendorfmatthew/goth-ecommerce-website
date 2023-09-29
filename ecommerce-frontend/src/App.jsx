@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Navbar from './Components/Navbar'
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  let [cartTotal, setCartTotal] = useState(0);
+  const navigate = useNavigate();
   // Images taken from Amazon products containing clothing accessories
   const [pictures, setPictures] = useState(['/malegoth.jpg', '/handsonhips.jpg', '/gothbrace.jpg', '/gothpants.jpg']); // Sets pictures to be used for slideshow
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,6 +29,7 @@ function App() {
       } catch (error) {
         console.log("Couldn't get posts", error);
       }
+    //localStorage.clear();
     }
 
     const getBottoms = async() => {
@@ -80,9 +84,13 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleClick = (id) => {
+    navigate(`/clothes/${id}`);
+}
+
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="image-container">
         {pictures.map((pic, index) => {
           return <img id='image' src={pic} alt="" key={index} style={{ display: index === currentIndex ? 'block' : 'none' }} height={1500} width={1500}/>
@@ -95,7 +103,7 @@ function App() {
       <div className="shirts">
         {tops.map((tops, index) => {
           if (index < 5) { // Prevent the sections in the front page from showing more than 5 of each item
-            return  <div className="cards" key={index}>
+            return  <div className="cards" key={index} onClick={() => handleClick(tops._id)}>
                       <div className="img-border">
                         <img className="gothpants" src={tops.image} alt="" width="280" height="300" />
                       </div>
@@ -111,7 +119,7 @@ function App() {
       <div className="shirts">
         {bottoms.map((bottoms, index) => {
             if (index < 5) {
-              return  <div className="cards" key={index}>
+              return  <div className="cards" key={index} onClick={() => handleClick(bottoms._id)}>
                         <div className="img-border">
                           <img className="gothpants" src={bottoms.image} alt="" width="280" height="300" />
                         </div>
@@ -127,7 +135,7 @@ function App() {
       <div className="shirts">
         {accessories.map((accessories, index) => {
             if (index < 5) {
-              return  <div className="cards" key={index}>
+              return  <div className="cards" key={index} onClick={() => handleClick(accessories._id)}>
                         <div className="img-border">
                           <img className="gothpants" src={accessories.image} alt="" width="280" height="300" />
                         </div>

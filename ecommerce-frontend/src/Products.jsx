@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import './App.css'
+import { useCart } from './CartContext';
 
 const Products = () => {
+    const { cartTotal } = useCart();
+    const navigate = useNavigate();
     const stockArray = ["In Stock", "Out of Stock"];
     const productsArray = ["Tops", "Bottoms", "Accessories"];
     const [from, setFrom] = useState('');
@@ -80,8 +84,8 @@ const Products = () => {
         }
     }, [from, to]);
 
-    const handleClick = () => {
-        console.log('dis works les go');
+    const handleClick = (id) => {
+        navigate(`/clothes/${id}`);
     }
 
     const handleStockFilter = () => {
@@ -228,7 +232,7 @@ const Products = () => {
                 </div>
                 <div className="clothes-section">
                     {items.map((item, index) => {
-                        return  <div className="clothes-item" key={index} onClick={handleClick}>
+                        return  <div className="clothes-item" key={index} onClick={() => handleClick(item._id)}>
                                     <div className="img-border">
                                         <img className="gothpants" src={item.image} alt="" width="280" height="300" />
                                     </div>

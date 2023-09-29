@@ -41,8 +41,15 @@ a {
 }
 
 #cart {
-  margin-right: 50px; /* Adjust spacing between "Cart" and "Sign In" */
   font-size: 30px;
+}
+
+.cart-text {
+  width: 20px;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 30px;
+  margin-right: 70px;
 }
 
 #sign-in {
@@ -297,4 +304,251 @@ a {
   text-align: center;
   margin-left: 25px;
   border: 2px solid black;
+}
+
+.image-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.paragraph {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 2;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.email-form {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh; /* Centers vertically on the entire viewport height */
+  margin-top: 60px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Add some vertical spacing between input elements */
+}
+
+.form-input {
+  width: 400px;
+  height: 40px; /* Reduced height for input fields */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: start;
+  padding: 10px; /* Added padding for better visual spacing */
+}
+
+.form-textarea {
+  resize: none;
+  font-size: 15px;
+  min-height: 150px; /* Adjust as needed for the textarea height */
+  padding: 10px; /* Added padding for better visual spacing */
+}
+
+.send-button {
+  padding: 20px 60px; /* Added padding to the button for better appearance */
+  background-color: black;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.send-button:active {
+  background-color: rgb(29, 28, 28);
+}
+
+.contact-title {
+  text-align: center;
+  font-family: 'Arial, Helvetica, sans-serif';
+}
+
+.item-container {
+  width: 1000px;
+  height: 800px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.items-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: center;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.sections-header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+}
+
+.sections-price {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.add-cart-button {
+  border: 2px solid black;
+  background-color: white;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  width: 350px;
+  height: 80px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.add-cart-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.cart-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  text-align: center;
+}
+
+.checkout-button {
+  display: flex;
+  padding: 25px 100px;
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+  font-size: 20px;
+}
+.checkout-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.quantity-input {
+  border: solid 2px black;
+  width: 250;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 140px;
+}
+
+.minus-button {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.plus-button {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.quantity-text {
+  height: 44px;
+  width: 50px;
+  text-align: center;
+  color: black;
+  border: none;
+  outline: none;
+  font-size: 18px;
+}
+
+.trash-can {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 20px; 
+  height: 20px; 
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.cart-item-title-price {
+  margin-left: 50px;
+  width: 362.75px;
+  height: 300px;
+}
+
+.cart-item-title {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.item-total {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 200px;
+}
+
+.estimated-total-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.estimated-total{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  margin-left: 10px;
+}
+
+.estimated-stuff {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.checkout-button {
+  margin-top: 50px;
+  cursor: pointer;
+}
+
+.confirmation-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment-text {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
 }

@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useCart } from '../CartContext';
 
 const Navbar = () => {
+    const { cartTotal } = useCart();
+
     return (  
         <>
             <div className="top-section">
@@ -10,6 +13,7 @@ const Navbar = () => {
                     <h2><a href="/about" id='contact'>About Us</a></h2>
                     <h2><a href="/contact" id='about'>Contact</a></h2>
                     <a href="/cart" id='cart'><img src="/coffin.png" width={50} height={50} /></a>
+                    <span className='cart-text'>{cartTotal > 0 ? cartTotal : null}</span>
                     <h2><a href="/login" id='sign-in'>Sign In</a></h2>
                 </div>
             </div>
