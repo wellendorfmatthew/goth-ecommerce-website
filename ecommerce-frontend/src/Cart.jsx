@@ -5,14 +5,14 @@ import { useCart } from './CartContext';
 const Cart = () => {
   const { cartList, deleteFromCart, handleDecrease, handleIncrease, handleCheckout, mappedProducts} = useCart();
   const checkout = async () => {
-    const checkoutList = handleCheckout();
+    const checkoutList = handleCheckout(); // Holds the returned checkout list from handleCheckout
     try {
       const response = await fetch("http://localhost:4015/checkout", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ checkoutList })
+        body: JSON.stringify({ checkoutList }) // Sets checklist as body so it can be retrieved in the server.js code
       });
 
       if (!response.ok) {
@@ -30,7 +30,7 @@ const Cart = () => {
   }
 
   useEffect(() => {
-    cartList.map((item, index) => {
+    cartList.map((item, index) => { // Display what's in the cartList each time a change gets made
       console.log(item);
     })
   }, [cartList]);

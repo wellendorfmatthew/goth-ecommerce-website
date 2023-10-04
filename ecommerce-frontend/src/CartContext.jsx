@@ -30,28 +30,28 @@ const CartProvider = ({ children }) => {
     };
     const [mappedProducts, setMappedProducts] = useState(mergedMappedProducts); // State variable to update the values of the merged mapped products
 
-    const [cartList, setCartList] = useState(() => {
+    const [cartList, setCartList] = useState(() => { // State variable to store what's in the cartlist to local storage
         const savedCartList = JSON.parse(localStorage.getItem('cartList')) || [];
         return savedCartList;
       });
     
-    const [cartTotal, setCartTotal] = useState(() => {
+    const [cartTotal, setCartTotal] = useState(() => { // State variable to store the cart total so that it can be seen across any page
         const savedCartTotal = parseInt(localStorage.getItem('cartTotal')) || 0;
         return savedCartTotal;
     });
 
     useEffect(() => {
-        // Save cartList in local storage whenever it changes
+        // Save changes to cartList in local storage whenever it changes
         localStorage.setItem('cartList', JSON.stringify(cartList));
         localStorage.setItem('cartTotal', cartTotal.toString());
     }, [cartList, cartTotal]);
 
-    useEffect(() => {
+    useEffect(() => { // Save changes to mappedProducts in local storage when changes occur
         localStorage.setItem('mappedProducts', JSON.stringify(mappedProducts));
         console.log('Mapped Products Updated:', mappedProducts);
     }, [mappedProducts]);
 
-    const addToCart = (item, increase) => {
+    const addToCart = (item, increase) => { // Increases the cart counter, adds an item to the cartList, and increases the quantity of the item in mappedProducts by 1
         setCartTotal((prev) => prev + 1);
         const updatedCartList = [item, ...cartList];
         setCartList(updatedCartList);
@@ -68,7 +68,7 @@ const CartProvider = ({ children }) => {
         }
     };
 
-    const deleteFromCart = (item) => {
+    const deleteFromCart = (item) => { // Deletes item from the cartList, sets cartTotal and mappedProducts quantity to 0
         setCartTotal(0);
         const updatedCartList = cartList.filter((cartItem) => cartItem !== item);
         setCartList(updatedCartList);
@@ -79,9 +79,9 @@ const CartProvider = ({ children }) => {
         });
     };
 
-    const handleIncrease = (item) => {
+    const handleIncrease = (item) => { // Increases the cart total and mappedproducts quantity when the plus button is pressed
         setCartTotal((prev) => prev + 1);
-        if (mappedProducts.hasOwnProperty(item.name)) {
+        if (mappedProducts.hasOwnProperty(item.name)) { // Checks if its the right clothing item
             const addItem = mappedProducts[item.name];
             setMappedProducts({
                 ...mappedProducts,
@@ -90,8 +90,8 @@ const CartProvider = ({ children }) => {
         }
     };
 
-    const handleDecrease = (item) => {
-        if (mappedProducts.hasOwnProperty(item.name) && mappedProducts[item.name].quantity > 1) {
+    const handleDecrease = (item) => { // Decreases the cart total and mappedproducts quantity when the minus button is pressed
+        if (mappedProducts.hasOwnProperty(item.name) && mappedProducts[item.name].quantity > 1) { // Checks if its the right item and no item goes below 1
             setCartTotal((prev) => prev - 1);
             const addItem = mappedProducts[item.name];
             setMappedProducts({
@@ -101,7 +101,7 @@ const CartProvider = ({ children }) => {
         }
     };
 
-    const handleCheckout = () => {
+    const handleCheckout = () => { // Handles taking items from the cartList that match the item in mappedProducts and appends the price(stripe id) and quantity to checkoutList
         const checkoutList = [];
 
         cartList.map((item) => {
@@ -114,7 +114,7 @@ const CartProvider = ({ children }) => {
         return checkoutList;
     }
 
-    // Log cartList whenever it changes
+    // Log cartList and cartTotal whenever they change
     useEffect(() => {
         console.log('Updated cartList:', cartList);
     }, [cartList]);

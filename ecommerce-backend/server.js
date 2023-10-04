@@ -1,10 +1,10 @@
-require('dotenv').config();
+require('dotenv').config(); // Require dotenv to hide the port number, mongo uri, and strip secret test key
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const clothesRoutes = require('./routes/clothesRoutes');
 const loginRoutes = require('./routes/loginRoutes');
-const stripe = require('stripe')(process.env.STRIPE_TEST_KEY);
+const stripe = require('stripe')(process.env.STRIPE_TEST_KEY); // Require stripe for payment processing
 
 const app = express(); // Creates an express application instance
 
@@ -14,7 +14,7 @@ app.use(express.json()); // Allows for the use of json data
 app.use('/clothes', clothesRoutes);
 app.use('/user', loginRoutes);
   
-app.post("/checkout", async (req, res) => {
+app.post("/checkout", async (req, res) => { // Set up a post method to take items on checkout and perform payment processing through the stripe api
     const { checkoutList } = req.body;
 
     const session = await stripe.checkout.sessions.create({

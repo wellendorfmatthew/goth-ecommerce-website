@@ -7,8 +7,8 @@ const Confirmation = () => {
     const { cartTotal, setCartTotal, setCartList, cartList, setMappedProducts, mappedProducts, initialMappedProducts} = useCart();
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-           navigate('/'); 
+        const timeout = setTimeout(() => { // Sets a delay for how long the confirmation message is shown
+           navigate('/'); // Navigate to the home page and delete all the data from cartTotal, cartList, and mappedProducts
            setCartTotal(0);
            setCartList([]);
            setMappedProducts(initialMappedProducts);

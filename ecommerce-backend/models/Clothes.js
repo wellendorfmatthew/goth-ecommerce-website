@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ClothesSchema = new mongoose.Schema({
+const ClothesSchema = new mongoose.Schema({ // Creates a schema that will be used create clothes products
     image: {
         type: String,
         required: true

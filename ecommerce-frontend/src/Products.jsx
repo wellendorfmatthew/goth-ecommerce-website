@@ -9,10 +9,10 @@ const Products = () => {
     const navigate = useNavigate();
     const stockArray = ["In Stock", "Out of Stock"];
     const productsArray = ["Tops", "Bottoms", "Accessories"];
-    const [from, setFrom] = useState('');
-    const [to, setTo] = useState('');
-    const [items, setItems] = useState([]);
-    const [stockFilter, setStockFilter] = useState(false);
+    const [from, setFrom] = useState(''); // Sets the minimum price value to filter from
+    const [to, setTo] = useState(''); // Sets the maximum price value to filter to
+    const [items, setItems] = useState([]); // Sets the clothing items that will appear on the screen
+    const [stockFilter, setStockFilter] = useState(false); // 
     const [priceFilter, setPriceFilter] = useState(false);
     const [productFilter, setProductFilter] = useState(false);
     const [checkedStock, setCheckedStock] = useState(new Array(stockArray.length).fill(false)); // Fill an array of false values equivalent to the size of stockArray
@@ -21,7 +21,7 @@ const Products = () => {
     useEffect(() => {
         const getClothes = async () => {
             try {
-              const response = await fetch("http://localhost:4015/clothes");
+              const response = await fetch("http://localhost:4015/clothes"); // Fetches all the clothes on startup
               console.log(response, "This is the response");
       
               if (!response.ok) {
@@ -29,7 +29,7 @@ const Products = () => {
               }
       
               const data = await response.json();
-              setItems(data);
+              setItems(data); // Initially sets all the items to the screen to every clothing item in the database
               console.log(data);
             } catch (error) {
               console.log("Couldn't get posts", error);
@@ -43,11 +43,11 @@ const Products = () => {
             try {
                 let url = "http://localhost:4015/clothes/getPrices";
 
-                if (from !== "") {
+                if (from !== "") { // Set a minimum value if there exists one
                     url += `?from=${from}`;
                 }
 
-                if (to !== "") {
+                if (to !== "") { // Set a maximum value if there exists one
                     url += `&to=${to}`;
                 }
 
@@ -58,15 +58,15 @@ const Products = () => {
                   }
           
                 const data = await response.json();
-                setItems(data);
+                setItems(data); // Set items to those that correspond the minimum and maximum values queried for
             } catch (error) {
                 console.log("Couldn't get prices", error);
             }
         };
 
-        if (from !== "" && to !== "") {
+        if (from !== "" && to !== "") { // Only call getPrices if there is a minimum and maximum value
             getPrices();
-        } else {
+        } else { // Just retrieve all clothes if there is not minimum and maximum value
             const getAllValues = async () => {
                 try {
                     const response = await fetch("http://localhost:4015/clothes");
@@ -84,27 +84,27 @@ const Products = () => {
         }
     }, [from, to]);
 
-    const handleClick = (id) => {
+    const handleClick = (id) => { // Upon click navigate to a clothing item's specific page
         navigate(`/clothes/${id}`);
     }
 
-    const handleStockFilter = () => {
+    const handleStockFilter = () => { // Sets the stock filter to on or off to display the options
         setStockFilter(!stockFilter);
         console.log(stockFilter);
     }
 
-    const handlePriceFilter = () => {
+    const handlePriceFilter = () => { // Sets the price filter to on or off to display the options
         setPriceFilter(!priceFilter);
         console.log(priceFilter);
     }
 
-    const handleProductFilter = () => {
+    const handleProductFilter = () => { // Sets the product filter to on or off to display the options
         setProductFilter(!productFilter);
         console.log(productFilter);
     }
 
     const handleInStock = async (position) => {
-        const newCheckedStock = checkedStock.map((item, index) => {
+        const newCheckedStock = checkedStock.map((item, index) => { // Checks which stock option got selected
             return index === position ? !item : item
         });
 
@@ -114,19 +114,19 @@ const Products = () => {
             let url = "http://localhost:4015/clothes/getFilterStock";
 
             //TODO: Update to ternary operators later
-            if (newCheckedStock[0]) {
+            if (newCheckedStock[0]) { // Sets the stock filter to filter by those that are in stock
                 url += "?inStock=true";
                 console.log("in stock true");
             } else {
-                url += "?inStock=false";
+                url += "?inStock=false"; // Sets instock as false so filter won't select those in stock
                 console.log("in stock false");
             }
 
-            if (newCheckedStock[1]) {
+            if (newCheckedStock[1]) { // Sets the stock filter to filter by those that are out of stock
                 url += "&outOfStock=true";
                 console.log("out of stock true");
             } else {
-                url += "&outOfStock=false";
+                url += "&outOfStock=false"; // Sets outofstock as false so won't select those out of stock
                 console.log("out of stock false");
             }
 
@@ -147,7 +147,7 @@ const Products = () => {
 
     // TODO: Later on try to fix this so that handleProduct and handleInStock can work together
     const handleProduct = async (position) => {
-        const newCheckedProduct = checkedProducts.map((item, index) => {
+        const newCheckedProduct = checkedProducts.map((item, index) => { // Checks which product options got selected
             return index === position ? !item : item
         });
 
@@ -157,7 +157,7 @@ const Products = () => {
             let url = "http://localhost:4015/clothes/getFilterClothes";
 
             //TODO: Update to ternary operators later
-            if (newCheckedProduct[0]) {
+            if (newCheckedProduct[0]) { // Sets a query for tops if true unless false
                 url += "?tops=true";
                 console.log("tops true");
             } else {
@@ -165,7 +165,7 @@ const Products = () => {
                 console.log("tops false");
             }
 
-            if (newCheckedProduct[1]) {
+            if (newCheckedProduct[1]) { // Sets a query for bottoms if true unless false
                 url += "&bottoms=true";
                 console.log("bottoms true");
             } else {
@@ -173,7 +173,7 @@ const Products = () => {
                 console.log("bottoms false");
             }
 
-            if (newCheckedProduct[2]) {
+            if (newCheckedProduct[2]) { // Sets a query for accessories if true unless false
                 url += "&accessories=true";
                 console.log("accessories true");
             } else {

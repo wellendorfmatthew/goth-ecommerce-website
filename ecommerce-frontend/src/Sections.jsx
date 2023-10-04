@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom'
 import { useCart } from './CartContext'
 
 const Sections = () => {
-    const { id } = useParams();
-    const [item, setItem] = useState({});
+    const { id } = useParams(); // Allows to set an id to use for fetch request
+    const [item, setItem] = useState({}); // Sets an object that will be used to store the clothing item
     const { addToCart, cartTotal } = useCart();
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const Sections = () => {
             }
           }
         getItem();
-    }, []);
+    }, []); // Activates upon startup
 
     return (  
         <>

@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 function App() {
   let [cartTotal, setCartTotal] = useState(0);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Allows for navigating to a new page
   // Images taken from Amazon products containing clothing accessories
   const [pictures, setPictures] = useState(['/malegoth.jpg', '/handsonhips.jpg', '/gothbrace.jpg', '/gothpants.jpg']); // Sets pictures to be used for slideshow
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [bottoms, setBottoms] = useState([]);
-  const [tops, setTops] = useState([]);
-  const [accessories, setAccessories] = useState([]);
+  const [bottoms, setBottoms] = useState([]); // Stores bottoms in an array (important for filtering only for bottoms)
+  const [tops, setTops] = useState([]); // Stores tops in an array (important for filtering only for tops)
+  const [accessories, setAccessories] = useState([]); // Stores accessories in an array (important for filtering only for accessories)
 
   useEffect(() => {
-    const getTops = async() => {
+    const getTops = async() => { // Retrieves all tops from the database
       try {
         const response = await fetch("http://localhost:4015/clothes/getTops?clothing_type=tops");
         console.log(response, "This is the response");
@@ -32,7 +32,7 @@ function App() {
     //localStorage.clear();
     }
 
-    const getBottoms = async() => {
+    const getBottoms = async() => { // Retrieves all bottoms from the database
       try {
         const response = await fetch("http://localhost:4015/clothes/getBottoms?clothing_type=bottoms");
         console.log(response, "This is the response");
@@ -49,7 +49,7 @@ function App() {
       }
     }
 
-    const getAccessories = async() => {
+    const getAccessories = async() => { // Retrieve all accessories from the database
       try {
         const response = await fetch("http://localhost:4015/clothes/getAccessories?clothing_type=accessories");
         console.log(response, "This is the response");
@@ -73,7 +73,7 @@ function App() {
 
   // Create a function to increment the slide index
   const nextIndex = () => {
-    setCurrentIndex((index) => (index < pictures.length - 1 ? index + 1 : 0));
+    setCurrentIndex((index) => (index < pictures.length - 1 ? index + 1 : 0)); // Sets current index on which to advance (allows slideshow to restart when reaching the end)
   };
   
   // Use useEffect to automatically advance the slide
@@ -84,7 +84,7 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleClick = (id) => {
+  const handleClick = (id) => { // When user clicks on a product navigates them to the specific clothing item's page
     navigate(`/clothes/${id}`);
 }
 
