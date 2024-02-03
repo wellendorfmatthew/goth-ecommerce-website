@@ -1,6 +1,7 @@
 # goth-ecommerce-website
 
 The purpose of this project was to create a full stack ecommerce website focused on selling gothic related clothes/accessories.
+
 *Finish project is in the section9 branch
 
 # Technologies
