@@ -96,55 +96,48 @@ function App() {
           return <img id='image' src={pic} alt="" key={index} style={{ display: index === currentIndex ? 'block' : 'none' }} height={1500} width={1500}/>
         })}
       </div>
-      <hr className='first-line' />
-      <div className="shirt-section">
-        <h2>Tops</h2>
-      </div>
-      <div className="shirts">
-        {tops.map((tops, index) => {
-          if (index < 5) { // Prevent the sections in the front page from showing more than 5 of each item
-            return  <div className="cards" key={index} onClick={() => handleClick(tops._id)}>
-                      <div className="img-border">
-                        <img className="gothpants" src={tops.image} alt="" width="280" height="300" />
-                      </div>
-                      <p>{tops.name}</p>
-                      <p>${tops.price}</p>
-                    </div>
-          }
-          })}
-      </div>
-      <div className="shirt-section">
-        <h2>Bottoms</h2>
-      </div>
-      <div className="shirts">
-        {bottoms.map((bottoms, index) => {
-            if (index < 5) {
-              return  <div className="cards" key={index} onClick={() => handleClick(bottoms._id)}>
+        <h2 className='section-name'>Tops</h2>
+        <div className="shirts">
+          {tops.map((tops, index) => {
+            if (index < 5) { // Prevent the sections in the front page from showing more than 5 of each item
+              return  <div className="cards" key={index} onClick={() => handleClick(tops._id)}>
                         <div className="img-border">
-                          <img className="gothpants" src={bottoms.image} alt="" width="280" height="300" />
+                          <img className="gothpants" src={tops.image} alt="" width="280" height="300" />
                         </div>
-                        <p>{bottoms.name}</p>
-                        <p>${bottoms.price}</p>
+                        <p>{tops.name}</p>
+                        <p>${tops.price}</p>
                       </div>
             }
             })}
-      </div>
-      <div className="shirt-section">
-        <h2>Accessories</h2>
-      </div>
-      <div className="shirts">
-        {accessories.map((accessories, index) => {
-            if (index < 5) {
-              return  <div className="cards" key={index} onClick={() => handleClick(accessories._id)}>
-                        <div className="img-border">
-                          <img className="gothpants" src={accessories.image} alt="" width="280" height="300" />
+        </div>
+        <h2 className='section-name'>Bottoms</h2>
+        <div className="shirts">
+          {bottoms.map((bottoms, index) => {
+              if (index < 5) {
+                return  <div className="cards" key={index} onClick={() => handleClick(bottoms._id)}>
+                          <div className="img-border">
+                            <img className="gothpants" src={bottoms.image} alt="" width="280" height="300" />
+                          </div>
+                          <p>{bottoms.name}</p>
+                          <p>${bottoms.price}</p>
                         </div>
-                        <p>{accessories.name}</p>
-                        <p>${accessories.price}</p>
-                      </div>
-            }
-            })}
-      </div>
+              }
+              })}
+        </div>
+        <h2 className='section-name'>Accessories</h2>
+        <div className="shirts">
+          {accessories.map((accessories, index) => {
+              if (index < 5) {
+                return  <div className="cards" key={index} onClick={() => handleClick(accessories._id)}>
+                          <div className="img-border">
+                            <img className="gothpants" src={accessories.image} alt="" width="280" height="300" />
+                          </div>
+                          <p>{accessories.name}</p>
+                          <p>${accessories.price}</p>
+                        </div>
+              }
+              })}
+        </div>
     </>
   )
 }

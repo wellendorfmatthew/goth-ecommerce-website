@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Routes>
             <Route index element={<App />} />
             <Route exact path='/login' element={<Login />} />
-            <Route exact path='/signin' element={<Signup />} />
+            <Route exact path='/signup' element={<Signup />} />
             <Route exact path='/contact' element={<Contact />} />
             <Route exact path='/about' element={<About />} />
             <Route exact path='/products' element={<Products />} />
