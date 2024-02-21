@@ -2,7 +2,14 @@
 
 The purpose of this project was to create a full stack ecommerce website focused on selling gothic related clothes/accessories.
 
-*Finish project is in the section9 branch
+*Most stable version of the project is in the section9 branch
+
+# Changelog
+# February 21, 2024
+* Updated the UI of each web page by adding a hamburger menu for non signed in users and a dropdown menu with an icon for signed in users
+* Added responsive design for each page to make viewing and interacting with the application accessible on any device
+* Implemented login and sign up functionality to demonstrate the use of secure coding standards
+* Note: In the future need to finish updating the website to include a profile page and the ability to sign out
 
 # Technologies
 * React-Handles the client side code and connects webpages
