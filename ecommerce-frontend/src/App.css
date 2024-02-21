@@ -96,6 +96,131 @@ a {
   margin-left: 2em;
 }
 
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-icon {
+  width: auto;
+  height: auto;
+  border: 2px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.hamburger-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.hamburger-menu-closed {
+  right: -400px;
+  transition: right 0.4s ease-out;
+}
+
+.hamburger-menu-open {
+  right: 0px;
+  transition: right 0.4s ease-in;
+}
+
+.hamburger-menu-icon {
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  margin-right: 2em;
+}
+
+.hamburger-menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  /* top: 0; */
+  margin-top: 75px;
+  height: 100%;
+  width: 400px;
+  background-color: black;
+  gap: 1em;
+}
+
+.hamburger-row {
+  display: flex;
+  z-index: 999;
+  align-items: center;
+  gap: 2em;
+  transition: filter 0.3s;
+}
+
+.hamburger-row:hover {
+  filter: brightness(0.5);
+}
+
+.hamburger-pic {
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  margin-left: 1em;
+}
+
+.hamburger-text {
+  font-family: 'Goth';
+  font-size: 35px;
+  font-weight: 600;
+  color: white;
+}
+
+.dropdown-menu-closed {
+  right: -400px;
+  transition: right 0.4s ease-out;
+}
+
+.dropdown-menu-open {
+  right: 0px;
+  transition: right 0.4s ease-in;
+}
+
+.dropdown-menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  /* top: 0; */
+  margin-top: 75px;
+  height: 100%;
+  width: 400px;
+  background-color: black;
+  gap: 1em;
+}
+
+.profile-row {
+  display: flex;
+  z-index: 999;
+  align-items: center;
+  gap: 2em;
+  transition: filter 0.3s;
+}
+
+.profile-row:hover {
+  filter: brightness(0.5);
+}
+
+.profile-pic {
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  margin-left: 1em;
+}
+
+.profile-text {
+  font-family: 'Goth';
+  font-size: 35px;
+  font-weight: 600;
+  color: white;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -104,6 +229,7 @@ a {
   background-image: url("./assets/41675.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  overflow-y: auto;
 }
 
 .signup-card {
@@ -151,13 +277,28 @@ a {
 
 #password {
   /* margin-top: 20px; */
+  padding: 0;
+  padding-right: 34px;
+  padding-left: 0;
   font-size: 20px;
   height: 50px;
   width: 100%;
-  padding: 0;
   border: 1px solid gray;
   border-radius: 8px;
   outline: none;
+}
+
+.password-field {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.eye-icon {
+  width: 17px;
+  height: 10px;
+  margin-left: -19px;
+  cursor: pointer;
 }
 
 .error-message {
@@ -230,8 +371,6 @@ a {
 
 .section-name {
   text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
 }
 
 .shirts {
@@ -243,9 +382,21 @@ a {
   grid-gap: 2%;
   @media screen and (max-width: 1430px) {
     grid-template-columns: repeat(4, 254px);
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
   @media screen and (max-width: 1110px) {
     grid-template-columns: repeat(3, 254px);
+  }
+  @media screen and (max-width: 833px) {
+    grid-template-columns: repeat(2, 254px);
+    margin-top: 3em;
+    margin-bottom: 4em;
+  }
+  @media screen and (max-width: 560px) {
+    grid-template-columns: repeat(1, 254px);
+    margin-top: 7em;
+    margin-bottom: 12em;
   }
 }
 
@@ -280,24 +431,32 @@ a {
 
 .products-layout {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .filter-section {
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  margin-left: 15px;
+  margin-bottom: 6em;
+  @media screen and (max-width: 350px) {
+    width: 100%;
+  }
 }
 
 .filter-line {
   width: 330px;
   border-top-color: black;
+  @media screen and (max-width: 350px) {
+    width: 90%;
+  }
 }
 
 .filter-button {
   padding: 20px 20px 20px 20px;
+  width: 330px;
   margin-bottom: 15px;
   font-weight: bold;
   font-size: 20px;
@@ -308,6 +467,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 350px) {
+    width: 90%;
+  }
 }
 
 .filter-button:hover {
@@ -321,10 +483,22 @@ a {
 
 .clothes-section {
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(5, 284px);
   grid-gap: 20px;
   grid-auto-rows: 404px;
-  margin-left: 25px;
+  @media screen and (max-width: 1510px) {
+    grid-template-columns: repeat(4, 284px);
+  }
+  @media screen and (max-width: 1215px) {
+    grid-template-columns: repeat(3, 284px);
+  }
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(2, 284px);
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(1, 284px);
+  }
 }
 
 .clothes-item {
@@ -353,6 +527,11 @@ a {
 .stock-section {
   display: flex;
   flex-direction: column;
+  margin-right: 220px;
+  @media screen and (max-width: 350px) {
+    margin-right: 0;
+    align-items: start;
+  }
 }
 
 .checkbox-container {
@@ -373,6 +552,11 @@ a {
   margin-bottom: 15px;
   align-items: center;
   vertical-align: middle;
+  margin-right: 100px;
+  @media screen and (max-width: 350px) {
+    margin-right: 0;
+    
+  }
 }
 
 #from {
@@ -417,6 +601,10 @@ a {
 .about-image {
   height: 400px;
   width: 400px;
+  @media screen and (max-width: 550px) {
+    height: 72.73%;
+    width: 72.73%;
+  }
 }
 
 .about-description {
@@ -425,13 +613,22 @@ a {
   line-height: 2;
   text-wrap: wrap;
   width: 500px;
+  @media screen and (max-width: 550px) {
+    width: 91%;
+  }
 }
 
 .email-form {
   display: flex;
   justify-content: center;
-  min-height: 100vh; /* Centers vertically on the entire viewport height */
-  margin-top: 60px;
+  align-items: center;
+  margin-top: 10em;
+}
+
+form {
+  @media screen and (max-width: 488px) {
+    width: 95%;
+  }
 }
 
 .input-container {
@@ -447,6 +644,7 @@ a {
   font-size: 15px;
   text-align: start;
   padding: 10px; /* Added padding for better visual spacing */
+  
 }
 
 .form-textarea {
@@ -459,6 +657,7 @@ a {
 .send-button {
   padding: 20px 60px; /* Added padding to the button for better appearance */
   background-color: black;
+  border: none;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
@@ -471,9 +670,23 @@ a {
   background-color: rgb(29, 28, 28);
 }
 
+.contact-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
 .contact-title {
   text-align: center;
+  margin: 0;
   font-family: 'Arial, Helvetica, sans-serif';
+  @media screen and (max-width: 488px) {
+    font-size: 26px;
+    margin-left: 3em;
+    margin-right: 3em;
+  }
 }
 
 .item-container {
@@ -552,6 +765,15 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 3em;
+  @media screen and (max-width: 1100px) {
+    gap: 5%;
+  }
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+    gap: 2em;
+    align-items: center;
+  }
 }
 
 .quantity-input {
@@ -563,7 +785,7 @@ a {
   align-items: center;
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 140px;
+  /* margin-left: 140px; */
 }
 
 .minus-button {
@@ -600,18 +822,39 @@ a {
   margin-bottom: auto;
   width: 20px; 
   height: 20px; 
-  margin-left: 20px;
+  /* margin-left: 20px; */
   cursor: pointer;
 }
 
 .cart-item-title-price {
-  margin-left: 50px;
+  /* margin-left: 50px; */
   width: 362.75px;
   height: 300px;
+  @media screen and (max-width: 850px) {
+    text-align: center;
+    width: 280px;
+    height: 100%;
+  }
+}
+
+.cart-item-price {
+  @media screen and (max-width: 850px) {
+    text-align: center;
+    margin-bottom: 0;
+  }
 }
 
 .cart-item-title {
   font-family: Arial, Helvetica, sans-serif;
+  @media screen and (max-width: 850px) {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.first-hr,.second-hr {
+  @media screen and (max-width: 850px) {
+  }
 }
 
 .item-total {
@@ -620,7 +863,7 @@ a {
   margin-bottom: auto;
   font-size: 25px;
   font-family: Arial, Helvetica, sans-serif;
-  margin-left: 200px;
+  /* margin-left: 200px; */
 }
 
 .estimated-total-text {
