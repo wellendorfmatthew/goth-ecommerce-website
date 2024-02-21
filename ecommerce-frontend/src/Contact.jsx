@@ -6,8 +6,10 @@ const Contact = () => {
     return (  
         <>
             <Navbar/>
-            <h1 className='contact-title'>Feel free to contact us at:</h1>
-            <h1 className='contact-title'>gothgraphics@gmail.com</h1>
+            <div className='contact-text-container'>
+                <h1 className='contact-title'>Feel free to contact us at:</h1>
+                <h1 className='contact-title'>gothgraphics@gmail.com</h1>
+            </div>
             <div className="email-form">
                 <form action="https://formspree.io/f/meqbrrle" method='POST'>
                     <div className='input-container'>

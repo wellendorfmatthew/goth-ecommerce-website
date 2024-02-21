@@ -11,23 +11,26 @@ import Cart from './Cart.jsx';
 import { CartProvider } from './CartContext.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Confirmation from './Confirmation.jsx';
+import { AuthProvider } from './Contexts/AuthContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <CartProvider>
-      <BrowserRouter>
-          <Routes>
-            <Route index element={<App />} />
-            <Route exact path='/login' element={<Login />} />
-            <Route exact path='/signin' element={<Signup />} />
-            <Route exact path='/contact' element={<Contact />} />
-            <Route exact path='/about' element={<About />} />
-            <Route exact path='/products' element={<Products />} />
-            <Route exact path='/cart' element={<Cart />} />
-            <Route exact path='/confirmation' element={<Confirmation />} />
-            <Route exact path='/clothes/:id' element={<Sections />} />
-          </Routes>
-      </BrowserRouter>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <BrowserRouter>
+            <Routes>
+              <Route index element={<App />} />
+              <Route exact path='/login' element={<Login />} />
+              <Route exact path='/signup' element={<Signup />} />
+              <Route exact path='/contact' element={<Contact />} />
+              <Route exact path='/about' element={<About />} />
+              <Route exact path='/products' element={<Products />} />
+              <Route exact path='/cart' element={<Cart />} />
+              <Route exact path='/confirmation' element={<Confirmation />} />
+              <Route exact path='/clothes/:id' element={<Sections />} />
+            </Routes>
+        </BrowserRouter>
+      </CartProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
