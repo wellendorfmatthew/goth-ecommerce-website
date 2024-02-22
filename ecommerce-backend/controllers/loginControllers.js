@@ -77,7 +77,94 @@ const signupUser = async (req, res) => {
   }
 };
 
+const updateUserEmail = async (req, res) => {
+  const { email, newEmail } = req.body;
+
+  if (email === newEmail) {
+    res.status(200).send("Incoming email is same as the current one");
+  }
+
+  try {
+    const exists = await Login.findOne({ email });
+    if (exists) {
+      try {
+        const updateUser = await Login.findByIdAndUpdate(exists._id, {
+          email: newEmail,
+        });
+        if (updateUser) {
+          res.status(200).json({ updateUser });
+          console.log("Successfully updated email!");
+        } else {
+          throw new Error("Unable to update email");
+        }
+      } catch (error) {
+        res.status(400).json({ error: error.message });
+      }
+    } else {
+      throw new Error("Unable to find an account associated with that email");
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const updatePassword = async (req, res) => {
+  const { email, currentPassword, newPassword, confirmPassword } = req.body;
+
+  try {
+    if (!validator.isStrongPassword(newPassword)) {
+      throw new Error("New password is not a valid password");
+    }
+
+    if (!validator.isStrongPassword(confirmPassword)) {
+      throw new Error("Confirm password is not a valid password");
+    }
+
+    if (newPassword !== confirmPassword) {
+      throw new Error("New and confirm password don't match");
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
+  try {
+    const user = await Login.findOne({ email: email });
+
+    if (user) {
+      const matchPasswords = await bcrypt.compare(
+        // Compare the current password with the hashed already stored password to determine if they're the same or not
+        currentPassword,
+        user.password
+      );
+      if (matchPasswords) {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(newPassword, salt);
+        const newUser = await Login.findByIdAndUpdate(user._id, {
+          password: hash,
+        });
+        if (newUser) {
+          res.status(200).json({ newUser });
+        } else {
+          throw new Error("Unable to update password please try again");
+        }
+      } else {
+        throw new Error(
+          "Current and stored password don't match please try again"
+        );
+      }
+    } else {
+      throw new Error(
+        "Unable to find an account associated with that password"
+      );
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   loginUser,
   signupUser,
+  updateUserEmail,
+  updatePassword,
 };
