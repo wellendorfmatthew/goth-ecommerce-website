@@ -3,12 +3,20 @@ import { useCart } from '../CartContext';
 import { useAuth } from '../Contexts/AuthContext';
 import AVATAR from '../assets/avatar-icon.png';
 import HAMBURGER from '../assets/icons8-hamburger-menu-50.png';
+import CONTACT from '../assets/email.png';
+import PRODUCTS from '../assets/hood.png';
+import ABOUT_US from '../assets/info.png';
+import SIGN_IN from '../assets/logout.png';
+import SIGN_OUT from '../assets/log-out.png';
+import CART from '../assets/coffin.png';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const { cartTotal } = useCart();
-    const { signedIn } = useAuth();
+    const { signedIn, email, setEmail } = useAuth();
     const [dropdown, setDropdown] = useState(false);
     const [hamburger, setHamburger] = useState(false);
+    const navigate = useNavigate();
 
     const handleDropdown = () => {
         setDropdown(!dropdown);
@@ -20,12 +28,19 @@ const Navbar = () => {
         document.body.style.overflowY = hamburger ? "auto" : "hidden";
     }
 
+    const handleSignOut = () => {
+        localStorage.removeItem("email");
+        localStorage.removeItem("signedIn");
+        navigate("/login");
+    }
+
     useEffect(() => {
         const closeMenuAnywhere = (e) => {
             const menu = document.querySelector(".hamburger-container");
             if (menu) {
                 if (!menu.contains(e.target)) {
                     setHamburger(false);
+                    document.body.style.overflowY = "auto";
                 }
             }
         }
@@ -50,32 +65,32 @@ const Navbar = () => {
                     <span className='cart-text'>{cartTotal > 0 ? cartTotal : null}</span>
                 </div>*/}
                 {
-                    signedIn ? (
+                    localStorage.getItem("signedIn") === "true" ? (
                     <div className='avatar-container' onClick={() => handleDropdown()}>
                         <img src={AVATAR} alt="" className='avatar-icon' />
                         <div className={`dropdown-menu ${dropdown ? 'dropdown-menu-open' : 'dropdown-menu-closed'}`}>
-                            <a href='/' className='profile-row'>
+                            <a href='/profile' className='profile-row'>
                                 <img src={AVATAR} alt="" className='profile-pic' />
                                 <p className='profile-text'>Profile</p>
                             </a>
                             <a href='/products' className='profile-row'>
-                                <img src={AVATAR} alt="" className='profile-pic' />
+                                <img src={PRODUCTS} alt="" className='profile-pic' />
                                 <p className='profile-text'>Products</p>
                             </a>
                             <a href='/about' className='profile-row'>
-                                <img src={AVATAR} alt="" className='profile-pic' />
+                                <img src={ABOUT_US} alt="" className='profile-pic' />
                                 <p className='profile-text'>About Us</p>
                             </a>
                             <a href='/contact' className='profile-row'>
-                                <img src={AVATAR} alt="" className='profile-pic' />
+                                <img src={CONTACT} alt="" className='profile-pic' />
                                 <p className='profile-text'>Contact</p>
                             </a>
                             <a href='/cart' className='profile-row'>
-                                <img src={AVATAR} alt="" className='profile-pic' />
+                                <img src={CART} alt="" className='profile-pic' />
                                 <p className='profile-text'>Cart</p>
                             </a>
-                            <a href='/login' className='profile-row'>
-                                <img src={AVATAR} alt="" className='profile-pic' />
+                            <a href='/login' className='profile-row' onClick={() => handleSignOut()}>
+                                <img src={SIGN_OUT} alt="" className='profile-pic' />
                                 <p className='profile-text'>Sign Out</p>
                             </a>
                         </div>
@@ -84,28 +99,28 @@ const Navbar = () => {
                         <div className='hamburger-container' onClick={() => handleHamburger()}>
                             <img src={HAMBURGER} alt="" className='hamburger-menu-icon' />
                             <div className={`hamburger-menu ${hamburger ? 'hamburger-menu-open' : 'hamburger-menu-closed'}`}>
-                                <a href='/' className='hamburger-row'>
+                                {/*<a href='/profile' className='hamburger-row'>
                                     <img src={AVATAR} alt="" className='hamburger-pic' />
                                     <p className='hamburger-text'>Profile</p>
-                                </a>
+                                </a>*/}
                                 <a href='/products' className='hamburger-row'>
-                                    <img src={AVATAR} alt="" className='hamburger-pic' />
+                                    <img src={PRODUCTS} alt="" className='hamburger-pic' />
                                     <p className='hamburger-text'>Products</p>
                                 </a>
                                 <a href='/about' className='hamburger-row'>
-                                    <img src={AVATAR} alt="" className='hamburger-pic' />
+                                    <img src={ABOUT_US} alt="" className='hamburger-pic' />
                                     <p className='hamburger-text'>About Us</p>
                                 </a>
                                 <a href='/contact' className='hamburger-row'>
-                                    <img src={AVATAR} alt="" className='hamburger-pic' />
+                                    <img src={CONTACT} alt="" className='hamburger-pic' />
                                     <p className='hamburger-text'>Contact</p>
                                 </a>
                                 <a href='/cart' className='hamburger-row'>
-                                    <img src={AVATAR} alt="" className='hamburger-pic' />
+                                    <img src={CART} alt="" className='hamburger-pic' />
                                     <p className='hamburger-text'>Cart</p>
                                 </a>
                                 <a href='/login' className='hamburger-row'>
-                                    <img src={AVATAR} alt="" className='hamburger-pic' />
+                                    <img src={SIGN_IN} alt="" className='hamburger-pic' />
                                     <p className='hamburger-text'>Sign In</p>
                                 </a>
                             </div>

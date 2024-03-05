@@ -6,7 +6,7 @@ import SHOW_PASSWORD from './assets/show-password.png';
 import DONT_SHOW_PASSWORD from './assets/dont-show-password.png';
 
 const Signup = () => {
-    const { handleSignUp, emailError, passwordError, loginError, setEmailError, setPasswordError, setLoginError } = useAuth();
+    const { handleSignUp, emailError, passwordError, loginError, setEmailError, setPasswordError, setLoginError, } = useAuth();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

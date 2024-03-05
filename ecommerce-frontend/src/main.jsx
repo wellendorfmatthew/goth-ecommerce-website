@@ -12,6 +12,7 @@ import { CartProvider } from './CartContext.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Confirmation from './Confirmation.jsx';
 import { AuthProvider } from './Contexts/AuthContext.jsx';
+import Profile from './Profile.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route exact path='/cart' element={<Cart />} />
               <Route exact path='/confirmation' element={<Confirmation />} />
               <Route exact path='/clothes/:id' element={<Sections />} />
+              <Route exact path='/profile' element={<Profile />} />
             </Routes>
         </BrowserRouter>
       </CartProvider>
