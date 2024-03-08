@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Navbar from './Components/Navbar'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './Contexts/AuthContext';
 
 function App() {
+  const { getSession } = useAuth();
   let [cartTotal, setCartTotal] = useState(0);
   const navigate = useNavigate(); // Allows for navigating to a new page
   // Images taken from Amazon products containing clothing accessories
@@ -70,6 +72,7 @@ function App() {
     getBottoms();
     getAccessories();
   }, []);
+  
 
   // Create a function to increment the slide index
   const nextIndex = () => {

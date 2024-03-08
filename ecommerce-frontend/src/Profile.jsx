@@ -10,28 +10,32 @@ import AVATAR from './assets/avatar-icon.png';
 import PICKER from'./assets/picture-picker.png';
 
 const Profile = () => {
-    const { profile, setProfile, signedIn } = useAuth();
+    const { profile, setProfile, signedIn, setSignedIn, auth, setAuth } = useAuth();
     const [error, setError] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [currentEmail, setCurrentEmail] = useState(localStorage.getItem("email"));
+    const [currentEmail, setCurrentEmail] = useState("");
     const [newEmail, setNewEmail] = useState("");
     const [picture, setPicture] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     const updatePassword = async(currentPassword, newPassword, confirmPassword) => {
         try {
             const update = await fetch("http://localhost:4015/user/update/password",{
                 method: "PUT",
                 body: JSON.stringify({
-                    email: localStorage.getItem("email"),
                     currentPassword: currentPassword,
                     newPassword: newPassword,
                     confirmPassword: confirmPassword
                 }),
+                credentials: 'include',
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
             })
 
             const response = await update.json();
@@ -41,26 +45,32 @@ const Profile = () => {
             }
 
             console.log("updated password ", response)
+            setPasswordError("Successfully updated password")
+            setCurrentPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
 
             return response;
         } catch (error) {
-            setError(error.message);
+            setPasswordError(error.message);
             return response.error;
         }
     }
 
-    const updateEmail = async(email, newEmail) => {
+    const updateEmail = async(newEmail) => {
         console.log("newemail", newEmail);
         try {
             const update = await fetch("http://localhost:4015/user/update/email",{
                 method: "PUT",
                 body: JSON.stringify({
-                    email: email,
                     newEmail: newEmail
                 }),
+                credentials: 'include',
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
             })
 
             const response = await update.json();
@@ -71,37 +81,46 @@ const Profile = () => {
             }
 
             console.log("updated email ", response.email)
+            setNewEmail(response.email);
+            setCurrentEmail(response.email);
+            console.log("current email ", currentEmail);
+            console.log("new email ", newEmail);
+            setEmailError("Successfully updated email");
 
             return response.email;
         } catch (error) {
-            setError(error.message);
+            setEmailError(error.message);
             return response.error;
         }
     }
 
-    const handleProfilePicture = async (event) => {
-        const selectedFile = URL.createObjectURL(event.target.files[0]);
-        console.log("setpicture ", selectedFile)
-        console.log("picture type ", typeof selectedFile);
-        if (selectedFile) {
-          const newPicture = await updateProfilePicture(selectedFile)
-          console.log("profilepictureupdate worked! ", newPicture);
-          localStorage.setItem("profilePicture", newPicture); 
-          setPicture(localStorage.getItem("profilePicture"))
+    const handleProfilePicture = async (event) => { // Works!!
+        const fileObject = event.target.files[0];
+        console.log("fileobject ", fileObject);
+        
+        if (fileObject) {
+            const reader = new FileReader(); // Allows for reading the contents of files
+            
+            reader.onload = (event) => { // Loads file when done reading 
+                const imageData = event.target.result; // Gets the data url from the file
+                console.log("imageData ", imageData);
+                
+                localStorage.removeItem("profilePicture");
+                localStorage.setItem("profilePicture", imageData);
+            };
+            
+            reader.readAsDataURL(fileObject); // This is what initiates the reading of selected file as a URL
         }
-    }
+    };
+    
 
-    const updateInfo = async() => {
+    const updateInfo = async() => { // Don't need anymore
             try {
-                const updatedEmail = await updateEmail(currentEmail, newEmail);
+                const updatedEmail = await updateEmail(newEmail);
     
                 if (updatedEmail !== updatedEmail.error) {
-                    localStorage.removeItem("email");
-                    localStorage.setItem("email", updatedEmail)
-                    setCurrentEmail(localStorage.getItem("email"));
                     setNewEmail(updatedEmail);
                     console.log("email updated!")
-                    console.log("current email ", currentEmail)
                     console.log("new email ", newEmail)
                     setError("Successfully updated email");
                 } else {
@@ -124,7 +143,14 @@ const Profile = () => {
 
     const getWishList = async() => { // Works!
         try {
-            const wishlist = await fetch(`http://localhost:4015/user/wishlist?email=${currentEmail}`);
+            const wishlist = await fetch(`http://localhost:4015/user/wishlist`, {
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
+            });
 
             const response = await wishlist.json();
 
@@ -144,7 +170,14 @@ const Profile = () => {
 
     const getOrders = async() => { // Works!
         try {
-            const orders = await fetch(`http://localhost:4015/user/orders?email=${currentEmail}`);
+            const orders = await fetch(`http://localhost:4015/user/orders`, {
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
+            });
 
             const response = await orders.json();
 
@@ -161,17 +194,19 @@ const Profile = () => {
         }
     }
 
-    const updateProfilePicture = async(newPicture) => {
+    const updateProfilePicture = async(newPicture) => { // Probably don't need anymore since using localStorage for pictures
         try {
             const update = await fetch("http://localhost:4015/user/picture",{
                 method: "PUT",
                 body: JSON.stringify({
-                    email: localStorage.getItem("email"),
                     profilePicture: newPicture
                 }),
+                credentials: 'include',
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
             })
 
             const response = await update.json();
@@ -180,9 +215,10 @@ const Profile = () => {
                 throw Error(response.error)
             }
 
-            console.log("updateProfilePicture ", response);
+            console.log("updateProfilePicture ", response.picture);
+            console.log("response profilePicture ", response.picture);
 
-            const newProfilePicture = response;
+            const newProfilePicture = response.picture;
             return newProfilePicture;
         } catch (error) {
             setError(error.message);
@@ -190,52 +226,56 @@ const Profile = () => {
         }
     }
 
-    const deleteProfilePicture = async() => {
-        try {
-            const update = await fetch("http://localhost:4015/user/picture",{
-                method: "DELETE",
-            })
+    const deleteProfilePicture = () => { // Probably don't actually need anymore
+        localStorage.removeItem("profilePicture");
+        console.log("deleteProfilePicture ", localStorage.getItem("profilePicture"));
+        // try {
+        //     const update = await fetch("http://localhost:4015/user/picture",{
+        //         method: "DELETE",
+        //     })
 
-            const response = await update.json();
+        //     const response = await update.json();
 
-            if (response.error) {
-                throw Error(response.error)
-            }
+        //     if (response.error) {
+        //         throw Error(response.error)
+        //     }
 
-            const deletedProfilePicture = response;
-            setProfile({...profile, profilePicture : ""});
-            return true;
-        } catch (error) {
-            setError(error.message);
-            return response.error;
-        }
+        //     const deletedProfilePicture = response;
+        //     setProfile({...profile, profilePicture : ""});
+        //     return true;
+        // } catch (error) {
+        //     setError(error.message);
+        //     return response.error;
+        // }
     }
 
     useEffect(() => {
         const getProfile = async() => { // Works!
             try {
-                const profile = await fetch(`http://localhost:4015/user/info?email=${currentEmail}`);
-                console.log("Profile Response ", profile)
-                const response = await profile.json();
-                console.log("Response, ", response)
-                if (response.error) {
+                const response = await fetch('http://localhost:4015/user/info', {
+                    credentials: 'include',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Credentials": "true",
+                        "Access-Control-Allow-Origin": "http://localhost:5173",
+                    },
+                });
+                console.log("Response ", response)
+                const profile = await response.json();
+                console.log("Profile, ", profile)
+                if (profile.error) {
                     console.log("error?")
-                    throw new Error(response.error);
+                    throw new Error(profile.error);
                 }
-
-                localStorage.removeItem("email");
-                localStorage.setItem("email", response.email);
-                localStorage.removeItem("profilePicture");
-                localStorage.setItem("profilePicture", response.profilePicture);
-                console.log(localStorage.getItem("profilePicture"));
-                setPicture(response.profilePicture)
-                setNewEmail(response.email);
-                setCurrentEmail(localStorage.getItem("email"));
-                console.log("yo")
-                const newProfile = { email: currentEmail, profilePicture: response.profilePicture, wishList: response.wishList, orders: response.orders };
-                console.log(newProfile)
+                console.log("profile profilePicture ", profile.profilePicture);
+                const newProfile = { email: profile.email, profilePicture: profile.profilePicture, wishList: profile.wishList, orders: profile.orders };
+                console.log(newProfile);
                 setProfile(newProfile);
                 console.log(profile);
+                setSignedIn(true);
+                setCurrentEmail(profile.email);
+                setNewEmail(profile.email);
+                // setPicture(localStorage.getItem("profilePicture"));
                 return true;
             } catch (error) {
                 setError(error.message);
@@ -246,7 +286,7 @@ const Profile = () => {
 
     }, [])
     
-    if (localStorage.getItem("signedIn") === "true") {
+    if (signedIn) {
         return (
             <>
                 <Navbar />
@@ -258,11 +298,12 @@ const Profile = () => {
                         }
                     }
                     }>
-                        <input type="file" onChange={handleProfilePicture} style={{display: 'none'}} />
-                        <img src={picture || AVATAR} alt="" className='profile-image' />
+                        <input type="file" accept='image/*' onChange={handleProfilePicture} style={{display: 'none'}} />
+                        <img src={localStorage.getItem("profilePicture") || AVATAR} alt="" className='profile-image' />
                         <img src={PICKER} alt="" className='profile-picker' />
                     </div>
-                    <p className='profile-name'>{localStorage.getItem("email")}</p>
+                    <p className='profile-name'>{currentEmail}</p>
+                    <div className='error-section'>{error}</div>
                     <div className='section-changer'>
                         <div className='section'>
                             <img src={PERSONAL_INFO} alt="" className='section-image' />
@@ -282,7 +323,10 @@ const Profile = () => {
                             <div className='info-section'>
                                 <label htmlFor="email" className='info-label'>Email</label>
                                 <input type="text" name='email' className='info-input' value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
-                                {console.log(newEmail)}
+                            </div>
+                            <div className='update-button-section'>
+                                <button className='update-button' onClick={() => updateEmail(newEmail)}>Update Email</button>
+                                <div className='error-section'>{emailError}</div>
                             </div>
                             <div className='info-section'>
                                 <label htmlFor="current-password" className='info-label'>Current Password</label>
@@ -297,8 +341,8 @@ const Profile = () => {
                                 <input type="text" name='confirm-password' className='info-input' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                             </div>
                             <div className='update-button-section'>
-                                <button className='update-button' onClick={() => updateInfo()}>Update Info</button>
-                                <div className='error-section'>{error}</div>
+                                <button className='update-button' onClick={() => updatePassword(currentPassword, newPassword, confirmPassword)}>Update Password</button>
+                                <div className='error-section'>{passwordError}</div>
                             </div>
                         </div>
                     </div>

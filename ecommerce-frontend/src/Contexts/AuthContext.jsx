@@ -26,8 +26,11 @@ const AuthProvider = ({children}) => {
                     password: password
                 }),
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
+                credentials: "include",
             })
 
             const data = await response.json();
@@ -36,6 +39,7 @@ const AuthProvider = ({children}) => {
             if (!response.ok) { // The error object is in the bad response so grab the error from it
                 throw new Error(data.error);
             }
+            setSignedIn(true);
             return true;
 
         } catch (error) {
@@ -43,6 +47,62 @@ const AuthProvider = ({children}) => {
             console.log(error.code)
             console.log(error.message)
             return error.message;
+        }
+    }
+
+    const getSession = async () => {
+        try {
+            const response = await fetch("http://localhost:4015/user/session", {
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Unable to retrieve session");
+            }
+
+            const data = await response.json();
+            console.log(data)
+            console.log(data.session);
+
+            // setAuth(data.session);
+            console.log("data.session ", data.session);
+            setSignedIn(true);
+            return data.session;
+
+        } catch (error) {
+            console.log(error.message);
+            return null;
+        }
+    }
+
+    const handleSignOut = async () => {
+        try {
+            const response = await fetch("http://localhost:4015/user/signout", {
+                method: "POST",
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
+            })
+
+            if (!response.ok) {
+                throw new Error("Error signing out");
+            }
+
+            const data = response.json();
+            console.log(data);
+
+            return true;
+        } catch (error) {
+            console.log(error.message);
+            return null;
         }
     }
 
@@ -54,9 +114,12 @@ const AuthProvider = ({children}) => {
                     email: email,
                     password: password
                 }),
+                credentials: 'include',
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": "http://localhost:5173",
+                },
             })
 
             const data = await response.json(); 
@@ -66,13 +129,8 @@ const AuthProvider = ({children}) => {
                 throw new Error(data.error);
             }
 
-            localStorage.setItem("email", email);
-            console.log(localStorage.getItem("email"));
-            localStorage.setItem("signedIn", "true");
-            if (localStorage.getItem("signedIn") === "true") {
-                setSignedIn(true);
-            }
-            console.log(localStorage.getItem("signedIn"));
+            setSignedIn(true);
+            console.log("signed in ", signedIn);
             // setEmail(localStorage.getItem("email"));
             // console.log(email);
             return true;
@@ -154,7 +212,7 @@ const AuthProvider = ({children}) => {
     }
 
     return (  
-        <AuthContext.Provider value={{ emailError, setEmailError, passwordError, setPasswordError, loginError, setLoginError, handleSignUp, handleLogin, signedIn, setSignedIn, profile, setProfile, email, setEmail }}>
+        <AuthContext.Provider value={{ emailError, setEmailError, passwordError, setPasswordError, loginError, setLoginError, handleSignUp, handleLogin, signedIn, setSignedIn, profile, setProfile, email, setEmail, getSession, handleSignOut, auth, setAuth }}>
             { children }
         </AuthContext.Provider>
     );

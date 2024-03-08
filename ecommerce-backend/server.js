@@ -8,7 +8,13 @@ const stripe = require("stripe")(process.env.STRIPE_TEST_KEY); // Require stripe
 
 const app = express(); // Creates an express application instance
 
-app.use(cors()); // Allows for sharing resources between different servers
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    exposedHeaders: "Set-Cookie",
+  })
+); // Allows for sharing resources between different servers
 app.use(express.json()); // Allows for the use of json data
 
 app.use("/clothes", clothesRoutes);

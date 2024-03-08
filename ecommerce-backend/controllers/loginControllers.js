@@ -35,14 +35,26 @@ const loginUser = async (req, res) => {
       throw new Error("Incorrect password");
     }
 
-    const token = createToken(user._id);
+    const secret = process.env.SECRET;
 
-    // res.cookie("auth", token, {
-    //   httpOnly: true,
-    //   maxAge: 24 * 60 * 60 * 1000,
-    // });
+    const token = jwt.sign(
+      {
+        email,
+      },
+      secret,
+      {
+        expiresIn: 60 * 60 * 24 * 1000,
+      }
+    );
 
-    res.status(200).json({ email, token });
+    console.log(token);
+
+    res.setHeader(
+      "Set-Cookie",
+      `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
+    );
+
+    res.status(200).json({ message: "Successfully logged in" });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -103,8 +115,13 @@ const signupUser = async (req, res) => {
 
     res.setHeader(
       "Set-Cookie",
-      `auth=${token}; HttpOnly; Max-Age=${24 * 60 * 60 * 1000}; Path=/`
+      `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
     );
+    // res.status(200).cookie("auth", token, {
+    //   httpOnly: true,
+    //   maxAge: 24 * 60 * 60 * 1000,
+    //   path: "/"
+    // })
     res.status(200).json({ message: "Successfully signed up" });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -114,9 +131,9 @@ const signupUser = async (req, res) => {
 const getSession = async (req, res) => {
   try {
     const cookie = req.headers.cookie;
-    console.log(cookie);
+    console.log("cookie ", cookie);
     const parsedCookie = cookie.split("=")[1];
-    console.log(parsedCookie);
+    console.log("parsedCookie ", parsedCookie);
 
     if (!cookie) {
       throw new Error("Unable to retrieve session");
@@ -124,9 +141,9 @@ const getSession = async (req, res) => {
 
     const secret = process.env.SECRET;
     const decodedCookie = jwt.verify(parsedCookie, secret);
-    console.log(decodedCookie);
+    console.log("decodedCooie ", decodedCookie);
 
-    res.status(200).json({ decodedCookie });
+    res.status(200).json({ session: decodedCookie });
   } catch (error) {
     res.status(400).json({ error: error });
   }
@@ -142,10 +159,21 @@ const signOut = async (req, res) => {
 };
 
 const updateUserEmail = async (req, res) => {
-  const { email, newEmail } = req.body;
-  console.log("new ", newEmail);
-  console.log("old ", email);
+  const { newEmail } = req.body;
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCooie ", decodedCookie);
+    let email = decodedCookie.email;
     if (email === newEmail) {
       throw new Error("Email is same");
     }
@@ -158,7 +186,26 @@ const updateUserEmail = async (req, res) => {
       await exists.save();
       console.log(exists);
       if (exists) {
-        res.status(200).json({ exists });
+        email = newEmail;
+        console.log("reassigned email ", email);
+        const secret = process.env.SECRET;
+        const token = jwt.sign(
+          {
+            email,
+          },
+          secret,
+          {
+            expiresIn: 60 * 60 * 24 * 1000,
+          }
+        );
+
+        console.log(token);
+
+        res.setHeader(
+          "Set-Cookie",
+          `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
+        );
+        res.status(200).json(exists);
         console.log("Successfully updated email!");
       } else {
         throw new Error("Unable to update email");
@@ -172,9 +219,22 @@ const updateUserEmail = async (req, res) => {
 };
 
 const updatePassword = async (req, res) => {
-  const { email, currentPassword, newPassword, confirmPassword } = req.body;
+  const { currentPassword, newPassword, confirmPassword } = req.body;
 
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCookie ", decodedCookie);
+    const email = decodedCookie.email;
     if (!validator.isStrongPassword(newPassword)) {
       throw new Error("New password is not a valid password");
     }
@@ -210,7 +270,23 @@ const updatePassword = async (req, res) => {
           password: hash,
         });
         if (newUser) {
-          res.status(200).json({ newUser });
+          const token = jwt.sign(
+            {
+              email,
+            },
+            secret,
+            {
+              expiresIn: 60 * 60 * 24 * 1000,
+            }
+          );
+
+          console.log(token);
+
+          res.setHeader(
+            "Set-Cookie",
+            `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
+          );
+          res.status(200).json(user);
         } else {
           throw new Error("Unable to update password please try again");
         }
@@ -230,7 +306,7 @@ const updatePassword = async (req, res) => {
 };
 
 const addToWishList = async (req, res) => {
-  const { item, id, email } = req.body;
+  const { item, id } = req.body;
 
   try {
     const exists = await Login.findOne({ email });
@@ -250,7 +326,7 @@ const addToWishList = async (req, res) => {
 };
 
 const deleteFromWishList = async (req, res) => {
-  const { item, id, email } = req.query;
+  const { item, id } = req.query;
 
   try {
     const exists = await Login.findOne({ email });
@@ -268,8 +344,6 @@ const deleteFromWishList = async (req, res) => {
 };
 
 const getWishList = async (req, res) => {
-  const { email } = req.query;
-
   try {
     const exists = await Login.findOne({ email });
     if (exists) {
@@ -283,8 +357,6 @@ const getWishList = async (req, res) => {
 };
 
 const getOrders = async (req, res) => {
-  const { email } = req.query;
-
   try {
     const exists = await Login.findOne({ email });
     if (exists) {
@@ -298,7 +370,7 @@ const getOrders = async (req, res) => {
 };
 
 const addOrders = async (req, res) => {
-  const { email, id, image, name, price } = req.body;
+  const { id, image, name, price } = req.body;
 
   try {
     const exists = await Login.findOne({ email });
@@ -316,14 +388,29 @@ const addOrders = async (req, res) => {
 };
 
 const updateProfilePicture = async (req, res) => {
-  const { profilePicture, email } = req.body;
+  const { profilePicture } = req.body;
 
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCookie ", decodedCookie);
+    console.log("email ", decodedCookie.email);
+
+    const email = decodedCookie.email;
     const exists = await Login.findOne({ email });
     if (exists) {
       exists.profilePicture = profilePicture;
       await exists.save();
-      res.status(200).json(profilePicture);
+      res.status(200).json({ picture: profilePicture });
     } else {
       throw new Error("Unable to find an account associated with that email");
     }
@@ -333,6 +420,7 @@ const updateProfilePicture = async (req, res) => {
 };
 
 const deleteProfilePicture = async (req, res) => {
+  // Probably don't need anymore
   const { email } = req.query;
 
   try {
@@ -351,9 +439,22 @@ const deleteProfilePicture = async (req, res) => {
 };
 
 const getUserInfo = async (req, res) => {
-  const { email } = req.query;
-
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCookie ", decodedCookie);
+    console.log("email ", decodedCookie.email);
+
+    const email = decodedCookie.email;
     const exists = await Login.findOne({ email });
     if (exists) {
       res.status(200).json(exists);

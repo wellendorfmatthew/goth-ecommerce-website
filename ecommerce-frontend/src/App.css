@@ -102,11 +102,13 @@ a {
 }
 
 .avatar-icon {
-  width: auto;
-  height: auto;
+  width: 64px;
+  height: 64px;
   border: 2px solid black;
   border-radius: 50%;
   cursor: pointer;
+  background-size: cover;
+  margin-right: 32px;
 }
 
 .hamburger-container {
@@ -907,7 +909,6 @@ form {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 1em;
 }
 
 .profile-image {
@@ -918,6 +919,7 @@ form {
   cursor: pointer;
   margin-right: -24px;
   z-index: -1;
+  background-size: cover;
 }
 
 .profile-picker {
@@ -1028,4 +1030,5 @@ form {
   height: 32px;
   color: rgb(167, 28, 28);
   font-size: 16px;
+  text-align: center;
 }

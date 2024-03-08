@@ -10,10 +10,11 @@ import SIGN_IN from '../assets/logout.png';
 import SIGN_OUT from '../assets/log-out.png';
 import CART from '../assets/coffin.png';
 import { useNavigate } from 'react-router-dom';
+import 'axios';
 
 const Navbar = () => {
     const { cartTotal } = useCart();
-    const { signedIn, email, setEmail } = useAuth();
+    const { email, setEmail, handleSignOut, getSession, auth, setAuth, signedIn, setSignedIn} = useAuth();
     const [dropdown, setDropdown] = useState(false);
     const [hamburger, setHamburger] = useState(false);
     const navigate = useNavigate();
@@ -28,10 +29,15 @@ const Navbar = () => {
         document.body.style.overflowY = hamburger ? "auto" : "hidden";
     }
 
-    const handleSignOut = () => {
-        localStorage.removeItem("email");
-        localStorage.removeItem("signedIn");
-        navigate("/login");
+    const signOut = async () => {
+        const isSignOut = await handleSignOut();
+
+        if (isSignOut === true) {
+            setSignedIn(false);
+            navigate("/");
+            return;
+        }
+        return;
     }
 
     useEffect(() => {
@@ -52,6 +58,21 @@ const Navbar = () => {
         };
     })
 
+    useEffect(() => {
+        const retrieveSession = async () => {
+            const session = await getSession();
+            console.log("session ", session);
+            if (session !== null) {
+                setSignedIn(true);
+                setAuth(session);
+                console.log("auth ", auth);
+            } else {
+                setSignedIn(false);
+            }
+        }
+        retrieveSession();
+    }, [])
+
     return (  
         <>
             <div className="top-section">
@@ -65,9 +86,9 @@ const Navbar = () => {
                     <span className='cart-text'>{cartTotal > 0 ? cartTotal : null}</span>
                 </div>*/}
                 {
-                    localStorage.getItem("signedIn") === "true" ? (
+                    signedIn === true ? (
                     <div className='avatar-container' onClick={() => handleDropdown()}>
-                        <img src={AVATAR} alt="" className='avatar-icon' />
+                        <img src={localStorage.getItem("profilePicture") || AVATAR} alt="" className='avatar-icon' />
                         <div className={`dropdown-menu ${dropdown ? 'dropdown-menu-open' : 'dropdown-menu-closed'}`}>
                             <a href='/profile' className='profile-row'>
                                 <img src={AVATAR} alt="" className='profile-pic' />
@@ -89,7 +110,7 @@ const Navbar = () => {
                                 <img src={CART} alt="" className='profile-pic' />
                                 <p className='profile-text'>Cart</p>
                             </a>
-                            <a href='/login' className='profile-row' onClick={() => handleSignOut()}>
+                            <a href='/login' className='profile-row' onClick={() => signOut()}>
                                 <img src={SIGN_OUT} alt="" className='profile-pic' />
                                 <p className='profile-text'>Sign Out</p>
                             </a>
