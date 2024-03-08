@@ -12,7 +12,14 @@ Changes committed to the Add/ResponsiveDesign branch
 * Added responsive design for each page to make viewing and interacting with the application accessible on any device
 * Implemented login and sign up functionality to demonstrate the use of secure coding standards
 * Note: In the future need to finish updating the website to include a profile page and the ability to sign out
-
+# March 8, 2024
+Changes committed to the Add/Userprofile branch
+* Updated authentication to be implemented through http only cookies
+* Implemented profile page which includes a profile picture, user info, orders, and wishlist.
+* Implemented local storage storing of profile pictures(might adjust this later on)
+* Requests for retrieving many of the user's profile information is done through getting the email inside a stored cookie rather than manually placing into a function parameter
+* When updating or signing in, user cookie is refreshed, when signing out user cookie is deleted, user cookie is created on sign up then checked for existence in root page
+Note: In future need to implement adding a wish list and order history for a user, also UI adjustments to make the website more aesthetically pleasing
 # Technologies
 * React-Handles the client side code and connects webpages
 * Express-Handles all the routing and controllers used to communicate between the front end and backend
