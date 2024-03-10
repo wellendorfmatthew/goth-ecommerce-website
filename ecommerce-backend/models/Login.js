@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Clothes = require("./Clothes");
 
 const loginSchema = new Schema({
   email: {
@@ -15,11 +16,10 @@ const loginSchema = new Schema({
     {
       item: {
         name: String,
-        id: Number,
+        id: String,
         image: String,
         price: Number,
       },
-      id: Number,
     },
   ],
   orders: [

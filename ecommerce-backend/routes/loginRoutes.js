@@ -23,7 +23,7 @@ router.post("/signup", signupUser);
 router.put("/update/email", updateUserEmail);
 router.put("/update/password", updatePassword);
 router.put("/wishlist", addToWishList);
-router.delete("/wishlist", deleteFromWishList);
+router.delete("/wishlist/:id", deleteFromWishList);
 router.get("/wishlist", getWishList);
 router.get("/orders", getOrders);
 router.put("/orders", addOrders);

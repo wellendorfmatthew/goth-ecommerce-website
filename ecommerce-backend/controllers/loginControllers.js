@@ -306,17 +306,30 @@ const updatePassword = async (req, res) => {
 };
 
 const addToWishList = async (req, res) => {
-  const { item, id } = req.body;
+  const { item } = req.body;
 
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCookie ", decodedCookie);
+    const email = decodedCookie.email;
     const exists = await Login.findOne({ email });
     if (exists) {
-      const wishListItem = { item: item, id: id };
+      const wishListItem = { item: item };
       exists.wishList.push(wishListItem);
       console.log(exists.wishList);
       console.log(exists);
       await exists.save();
-      res.status(200).json({ wishListItem });
+      res.status(200).json({ message: "Updated wishlist" });
     } else {
       throw new Error("Unable to find an account associated with that email");
     }
@@ -326,15 +339,31 @@ const addToWishList = async (req, res) => {
 };
 
 const deleteFromWishList = async (req, res) => {
-  const { item, id } = req.query;
+  const { id } = req.params;
 
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCookie ", decodedCookie);
+    const email = decodedCookie.email;
     const exists = await Login.findOne({ email });
     if (exists) {
-      const index = exists.wishList.indexOf({ item: item, id: id });
-      const deletedWishList = exists.wishList.splice(index, 1);
+      exists.wishList = exists.wishList.filter((item) => {
+        return item._id.toString() !== id;
+      });
+      // const index = exists.wishList.indexOf({ item: item, id: id });
+      // const deletedWishList = exists.wishList.splice(index, 1);
       await exists.save();
-      res.status(200).json({ deletedWishList });
+      res.status(200).json({ message: "Item removed from wishlist" });
     } else {
       throw new Error("Unable to find an account associated with that email");
     }
@@ -345,6 +374,19 @@ const deleteFromWishList = async (req, res) => {
 
 const getWishList = async (req, res) => {
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCookie ", decodedCookie);
+    const email = decodedCookie.email;
     const exists = await Login.findOne({ email });
     if (exists) {
       res.status(200).json(exists.wishList);
