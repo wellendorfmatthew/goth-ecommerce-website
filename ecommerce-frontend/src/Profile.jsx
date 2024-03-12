@@ -23,7 +23,7 @@ const Profile = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [section, setSection] = useState(1);
-    const { addToCart, cartTotal } = useCart();
+    const { addToCart, cartTotal, mappedProducts } = useCart();
     const months = {0: "January", 1: "February", 2: "March", 3: "April", 4: "May", 5: "June", 
         6: "July", 7: "August", 8: "September", 9: "October", 10: "November", 11: "December"}
 
@@ -419,15 +419,15 @@ const Profile = () => {
                                                     </div>
                                                     <div className='order-info'>
                                                         <p className='order-info-text'>Total</p>
-                                                        <p className='order-info-text'>${23.99}</p>
+                                                        <p className='order-info-text'>${order.totalPrice}</p>
                                                     </div>
                                                     <div className='order-info'>
                                                         <p className='order-info-text'>Ship To</p>
                                                         <p className='order-info-text'>{currentEmail}</p>
                                                     </div>
                                                     <div className='order-info'>
-                                                        <p className='order-info-text'>Order # </p>
-                                                        <p className='order-info-text'>View Order Details</p>
+                                                        <p className='order-info-text'>Order # {order._id}</p>
+                                                        <p className='order-info-text order-details'>View Order Details</p>
                                                     </div>
                                                 </div>
                                                 <div className='order-products-section'>
@@ -437,7 +437,8 @@ const Profile = () => {
                                                                 <img src={product.image} alt="" className='ordered-product-image' />
                                                                 <div className='ordered-product-info'>
                                                                     <p>{product.name}</p>
-                                                                    <p>{product.price}</p>
+                                                                    <p>${product.price}</p>
+                                                                    <p>Quantity:{product.quantity}</p>
                                                                 </div>
                                                                 <button className='ordered-product-buy-again-button'>Buy Again</button>
                                                             </div>)

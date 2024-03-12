@@ -1168,6 +1168,7 @@ form {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 2em;
 }
 
 .ordered-product-image {
@@ -1199,4 +1200,12 @@ form {
 .ordered-product-buy-again-button:hover {
   background-color: black;
   color: white;
+}
+.order-details {
+  cursor: pointer;
+  transition: text-decoration 0.3s;
+}
+
+.order-details:hover {
+  text-decoration: underline;
 }
