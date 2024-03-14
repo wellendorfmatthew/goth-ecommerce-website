@@ -27,6 +27,12 @@ Changes committed to the Add/Wishlist branch
 * Implemented ability in the client to add/delete items in the wishlist
 * Added new button in each clothing item's section to add that item to the wishlist
 Note: In future need to implement ability to add item to cart inside profile page, a remove feature in the clothing item page, and possibly a check to see if a user has already added an item to their wishlist
+# March 12, 2024
+Changes committed to the Add/OrderHistory branch
+* Adjusted backend controllers to add items to orders
+* Added UI for displaying customer orders in profile page
+* Adjusted Mongoose schema to allow for adding orders and retrieving necessary information
+Note: In future need to implement ability to view order details for each order, possibly abilty to buy a product again
 # Technologies
 * React-Handles the client side code and connects webpages
 * Express-Handles all the routing and controllers used to communicate between the front end and backend
