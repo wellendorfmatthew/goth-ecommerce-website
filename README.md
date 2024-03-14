@@ -19,20 +19,20 @@ Changes committed to the Add/Userprofile branch
 * Implemented local storage storing of profile pictures(might adjust this later on)
 * Requests for retrieving many of the user's profile information is done through getting the email inside a stored cookie rather than manually placing into a function parameter
 * When updating or signing in, user cookie is refreshed, when signing out user cookie is deleted, user cookie is created on sign up then checked for existence in root page
-Note: In future need to implement adding a wish list and order history for a user, also UI adjustments to make the website more aesthetically pleasing
+* Note: In future need to implement adding a wish list and order history for a user, also UI adjustments to make the website more aesthetically pleasing
 # March 10, 2024
 Changes committed to the Add/Wishlist branch
 * Adjusted backend controllers to add/delete items to the wishlist
 * Added base UI for wishlist items in the profile page
 * Implemented ability in the client to add/delete items in the wishlist
 * Added new button in each clothing item's section to add that item to the wishlist
-Note: In future need to implement ability to add item to cart inside profile page, a remove feature in the clothing item page, and possibly a check to see if a user has already added an item to their wishlist
+* Note: In future need to implement ability to add item to cart inside profile page, a remove feature in the clothing item page, and possibly a check to see if a user has already added an item to their wishlist
 # March 12, 2024
 Changes committed to the Add/OrderHistory branch
 * Adjusted backend controllers to add items to orders
 * Added UI for displaying customer orders in profile page
 * Adjusted Mongoose schema to allow for adding orders and retrieving necessary information
-Note: In future need to implement ability to view order details for each order, possibly abilty to buy a product again
+* Note: In future need to implement ability to view order details for each order, possibly abilty to buy a product again
 # Technologies
 * React-Handles the client side code and connects webpages
 * Express-Handles all the routing and controllers used to communicate between the front end and backend
