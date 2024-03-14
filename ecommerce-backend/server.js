@@ -23,6 +23,7 @@ app.use("/user", loginRoutes);
 app.post("/checkout", async (req, res) => {
   // Set up a post method to take items on checkout and perform payment processing through the stripe api
   const { checkoutList } = req.body;
+  console.log(checkoutList);
 
   const session = await stripe.checkout.sessions.create({
     line_items: checkoutList,

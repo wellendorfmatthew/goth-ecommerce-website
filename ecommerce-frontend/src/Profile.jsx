@@ -8,8 +8,10 @@ import PERSONAL_INFO from './assets/notes.png';
 import ORDERS from './assets/orders.png';
 import AVATAR from './assets/avatar-icon.png';
 import PICKER from'./assets/picture-picker.png';
+import { useCart } from './CartContext';
 
 const Profile = () => {
+    const navigate = useNavigate();
     const { profile, setProfile, signedIn, setSignedIn, auth, setAuth } = useAuth();
     const [error, setError] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
@@ -20,6 +22,25 @@ const Profile = () => {
     const [picture, setPicture] = useState("");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const [section, setSection] = useState(1);
+    const { addToCart, cartTotal, mappedProducts } = useCart();
+    const months = {0: "January", 1: "February", 2: "March", 3: "April", 4: "May", 5: "June", 
+        6: "July", 7: "August", 8: "September", 9: "October", 10: "November", 11: "December"}
+
+    const changeSection = (sectionNum) => {
+        if (sectionNum === 1) {
+            setSection(1);
+            return;
+        }
+        if (sectionNum === 2) {
+            setSection(2);
+            return;
+        }
+        if (sectionNum === 3) {
+            setSection(3);
+            return;
+        }
+    }
 
     const updatePassword = async(currentPassword, newPassword, confirmPassword) => {
         try {
@@ -141,9 +162,37 @@ const Profile = () => {
             }
     }
 
-    const getWishList = async() => { // Works!
+    // const getWishList = async() => { // Works!
+    //     try {
+    //         const wishlist = await fetch(`http://localhost:4015/user/wishlist`, {
+    //             credentials: 'include',
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Access-Control-Allow-Credentials": "true",
+    //                 "Access-Control-Allow-Origin": "http://localhost:5173",
+    //             },
+    //         });
+
+    //         const response = await wishlist.json();
+
+    //         if (response.error) {
+    //             throw Error(response.error)
+    //         }
+
+    //         console.log("wishlist ", response);
+    //         console.log("first item ", response[0]);
+
+    //         return response;
+    //     } catch (error) {
+    //         console.log(error.message);
+    //         return false;
+    //     }
+    // }
+
+    const deleteFromWishList = async (id) => {
         try {
-            const wishlist = await fetch(`http://localhost:4015/user/wishlist`, {
+            const wishlist = await fetch(`http://localhost:4015/user/wishlist/${id}`, {
+                method: "DELETE",
                 credentials: 'include',
                 headers: {
                     "Content-Type": "application/json",
@@ -160,6 +209,10 @@ const Profile = () => {
 
             console.log("wishlist ", response);
             console.log("first item ", response[0]);
+
+            const newWishList = profile.wishList.filter((item) => item._id !== id);
+            setProfile({...profile, wishList: newWishList});
+            console.log("new profile wishlist",  profile);
 
             return response;
         } catch (error) {
@@ -193,6 +246,8 @@ const Profile = () => {
             return false;
         }
     }
+
+    
 
     const updateProfilePicture = async(newPicture) => { // Probably don't need anymore since using localStorage for pictures
         try {
@@ -247,6 +302,10 @@ const Profile = () => {
         //     setError(error.message);
         //     return response.error;
         // }
+    }
+
+    const handleClick = (id) => { // When user clicks on a product navigates them to the specific clothing item's page
+        navigate(`/clothes/${id}`);
     }
 
     useEffect(() => {
@@ -305,46 +364,111 @@ const Profile = () => {
                     <p className='profile-name'>{currentEmail}</p>
                     <div className='error-section'>{error}</div>
                     <div className='section-changer'>
-                        <div className='section'>
+                        <div className='section' onClick={() => changeSection(1)}>
                             <img src={PERSONAL_INFO} alt="" className='section-image' />
                             <p className='section-name'>Personal Info</p>
                         </div>
-                        <div className='section' onClick={() => getOrders()}>
+                        <div className='section' onClick={() => changeSection(2)}>
                             <img src={ORDERS} alt="" className='section-image' />
                             <p className='section-name'>My Orders</p>
                         </div>
-                        <div className='section' onClick={() => getWishList()}>
+                        <div className='section' onClick={() => changeSection(3)}>
                             <img src={WISHLIST} alt="" className='section-image' />
                             <p className='section-name'>Wishlist</p>
                         </div>
                     </div>
                     <div className='section-information'>
-                        <div className='personal-info-section'>
-                            <div className='info-section'>
-                                <label htmlFor="email" className='info-label'>Email</label>
-                                <input type="text" name='email' className='info-input' value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
+                        {section === 1 && (
+                            <div className='personal-info-section'>
+                                <div className='info-section'>
+                                    <label htmlFor="email" className='info-label'>Email</label>
+                                    <input type="text" name='email' className='info-input' value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
+                                </div>
+                                <div className='update-button-section'>
+                                    <button className='update-button' onClick={() => updateEmail(newEmail)}>Update Email</button>
+                                    <div className='error-section'>{emailError}</div>
+                                </div>
+                                <div className='info-section'>
+                                    <label htmlFor="current-password" className='info-label'>Current Password</label>
+                                    <input type="text" name='current-password' className='info-input' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+                                </div>
+                                <div className='info-section'>
+                                    <label htmlFor="new-password" className='info-label'>New Password</label>
+                                    <input type="text" name='new-password' className='info-input' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                                </div>
+                                <div className='info-section'>
+                                    <label htmlFor="confirm-password" className='info-label'>Confirm New Password</label>
+                                    <input type="text" name='confirm-password' className='info-input' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                                </div>
+                                <div className='update-button-section'>
+                                    <button className='update-button' onClick={() => updatePassword(currentPassword, newPassword, confirmPassword)}>Update Password</button>
+                                    <div className='error-section'>{passwordError}</div>
+                                </div>
                             </div>
-                            <div className='update-button-section'>
-                                <button className='update-button' onClick={() => updateEmail(newEmail)}>Update Email</button>
-                                <div className='error-section'>{emailError}</div>
+                        )}
+                        {section === 2 && (
+                            <div className='orders-section'>
+                                {
+                                    profile.orders.map((order) => {
+                                        return (
+                                            <>
+                                                <div className='order-info-section'>
+                                                    <div className='order-info'>
+                                                        <p className='order-info-text'>Order Placed</p>
+                                                        <p className='order-info-text'>{months[new Date(order.order[0].date).getMonth()] + " " + new Date(order.order[0].date).getDate() + " " + new Date(order.order[0].date).getFullYear()}</p>
+                                                    </div>
+                                                    <div className='order-info'>
+                                                        <p className='order-info-text'>Total</p>
+                                                        <p className='order-info-text'>${order.totalPrice}</p>
+                                                    </div>
+                                                    <div className='order-info'>
+                                                        <p className='order-info-text'>Ship To</p>
+                                                        <p className='order-info-text'>{currentEmail}</p>
+                                                    </div>
+                                                    <div className='order-info'>
+                                                        <p className='order-info-text'>Order # {order._id}</p>
+                                                        <p className='order-info-text order-details'>View Order Details</p>
+                                                    </div>
+                                                </div>
+                                                <div className='order-products-section'>
+                                                    {
+                                                        order.order.map((product) => {
+                                                            return (<div className='ordered-product-section'>
+                                                                <img src={product.image} alt="" className='ordered-product-image' />
+                                                                <div className='ordered-product-info'>
+                                                                    <p>{product.name}</p>
+                                                                    <p>${product.price}</p>
+                                                                    <p>Quantity:{product.quantity}</p>
+                                                                </div>
+                                                                <button className='ordered-product-buy-again-button'>Buy Again</button>
+                                                            </div>)
+                                                        })
+                                                    }
+                                                </div>
+                                            </>
+                                        )
+                                    })
+                                }
                             </div>
-                            <div className='info-section'>
-                                <label htmlFor="current-password" className='info-label'>Current Password</label>
-                                <input type="text" name='current-password' className='info-input' value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+                        )}
+                        {section === 3 && (
+                            <div className='wishlist-section'>
+                                {
+                                    profile.wishList.map((item) => {
+                                        return (<div className='wishlist-item'>
+                                                    <img src={item.item.image} className='wishlist-image' />
+                                                    <div className='wishlist-info'>
+                                                        <p className='wishlist-item-name' onClick={() => handleClick(item.item.id)}>{item.item.name}</p>
+                                                        <p className='wishlist-item-price'>${item.item.price}</p>
+                                                    </div>
+                                                    <div className='wishlist-modify'>
+                                                        <img src="/trashcan.png" alt="" className='wishlist-trash-can' onClick={() => deleteFromWishList(item._id)}/>
+                                                    </div>
+                                                </div>)
+                                    })
+                                }
                             </div>
-                            <div className='info-section'>
-                                <label htmlFor="new-password" className='info-label'>New Password</label>
-                                <input type="text" name='new-password' className='info-input' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-                            </div>
-                            <div className='info-section'>
-                                <label htmlFor="confirm-password" className='info-label'>Confirm New Password</label>
-                                <input type="text" name='confirm-password' className='info-input' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                            </div>
-                            <div className='update-button-section'>
-                                <button className='update-button' onClick={() => updatePassword(currentPassword, newPassword, confirmPassword)}>Update Password</button>
-                                <div className='error-section'>{passwordError}</div>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </>

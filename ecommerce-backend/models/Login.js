@@ -24,14 +24,20 @@ const loginSchema = new Schema({
   ],
   orders: [
     {
-      id: Number,
-      date: {
-        type: Date,
-        default: Date.now,
-      },
-      image: String,
-      name: String,
-      price: Number,
+      order: [
+        {
+          id: Number,
+          date: {
+            type: Date,
+            default: Date.now,
+          },
+          image: String,
+          name: String,
+          price: Number,
+          quantity: Number,
+        },
+      ],
+      totalPrice: Number,
     },
   ],
   profilePicture: {

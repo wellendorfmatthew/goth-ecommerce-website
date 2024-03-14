@@ -411,13 +411,28 @@ const getOrders = async (req, res) => {
   }
 };
 
+// Might need to implement ability to add orders based on whether someone has signed up or not(unsure if needed possibly not)
 const addOrders = async (req, res) => {
-  const { id, image, name, price } = req.body;
-
+  const { order } = req.body;
+  console.log("backend order ", order);
   try {
+    const cookie = req.headers.cookie;
+    console.log("cookie ", cookie);
+    const parsedCookie = cookie.split("=")[1];
+    console.log("parsedCookie ", parsedCookie);
+
+    if (!cookie) {
+      throw new Error("Unable to retrieve session");
+    }
+
+    const secret = process.env.SECRET;
+    const decodedCookie = jwt.verify(parsedCookie, secret);
+    console.log("decodedCookie ", decodedCookie);
+    const email = decodedCookie.email;
     const exists = await Login.findOne({ email });
     if (exists) {
-      const newOrder = { id: id, image: image, name: name, price: price };
+      const totalPrice = order.reduce((acc, item) => acc + item.price, 0);
+      const newOrder = { order: order, totalPrice: totalPrice };
       exists.orders.push(newOrder);
       await exists.save();
       res.status(200).json(newOrder);
