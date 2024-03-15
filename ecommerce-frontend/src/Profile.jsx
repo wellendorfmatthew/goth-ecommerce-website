@@ -414,16 +414,16 @@ const Profile = () => {
                                             <>
                                                 <div className='order-info-section'>
                                                     <div className='order-info'>
-                                                        <p className='order-info-text'>Order Placed</p>
-                                                        <p className='order-info-text'>{months[new Date(order.order[0].date).getMonth()] + " " + new Date(order.order[0].date).getDate() + " " + new Date(order.order[0].date).getFullYear()}</p>
+                                                        <p className='order-info-text-temp'>Order Placed</p>
+                                                        <p className='order-info-text-temp'>{months[new Date(order.order[0].date).getMonth()] + " " + new Date(order.order[0].date).getDate() + " " + new Date(order.order[0].date).getFullYear()}</p>
                                                     </div>
                                                     <div className='order-info'>
-                                                        <p className='order-info-text'>Total</p>
-                                                        <p className='order-info-text'>${order.totalPrice}</p>
+                                                        <p className='order-info-text-temp'>Total</p>
+                                                        <p className='order-info-text-temp'>${order.totalPrice}</p>
                                                     </div>
                                                     <div className='order-info'>
-                                                        <p className='order-info-text'>Ship To</p>
-                                                        <p className='order-info-text'>{currentEmail}</p>
+                                                        <p className='order-info-text-temp'>Ship To</p>
+                                                        <p className='order-info-text-temp'>{currentEmail}</p>
                                                     </div>
                                                     <div className='order-info'>
                                                         <p className='order-info-text'>Order # {order._id}</p>
