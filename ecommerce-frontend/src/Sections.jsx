@@ -67,7 +67,7 @@ const Sections = () => {
             <div className="item-container">
                 <div className="items-section">
                     <div className="item-border">
-                        <img src={item.image} alt="" width={560} height={600}/>
+                        <img src={item.image} alt="" className='sections-image'/>
                     </div>
                     <div className="item-info">
                         <h1 className='sections-header'>{item.name}</h1>
