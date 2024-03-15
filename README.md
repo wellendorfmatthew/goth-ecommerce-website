@@ -33,6 +33,9 @@ Changes committed to the Add/OrderHistory branch
 * Added UI for displaying customer orders in profile page
 * Adjusted Mongoose schema to allow for adding orders and retrieving necessary information
 * Note: In future need to implement ability to view order details for each order, possibly abilty to buy a product again
+# March 15, 2024
+Changes committed to the Add/ResponsiveProfile branch
+* Adjusted the design of the sections page and profile page wishlist, personal info, and order history sections to be viewable on mobile devices
 # Technologies
 * React-Handles the client side code and connects webpages
 * Express-Handles all the routing and controllers used to communicate between the front end and backend
