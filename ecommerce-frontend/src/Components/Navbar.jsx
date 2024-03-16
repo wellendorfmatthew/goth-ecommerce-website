@@ -43,9 +43,16 @@ const Navbar = () => {
     useEffect(() => {
         const closeMenuAnywhere = (e) => {
             const menu = document.querySelector(".hamburger-container");
+            const avatar = document.querySelector(".avatar-container");
+
             if (menu) {
                 if (!menu.contains(e.target)) {
                     setHamburger(false);
+                    document.body.style.overflowY = "auto";
+                }
+            } else if (avatar) {
+                if (!avatar.contains(e.target)) {
+                    setDropdown(false)
                     document.body.style.overflowY = "auto";
                 }
             }
@@ -151,6 +158,7 @@ const Navbar = () => {
                 </div>
                 {/*<div className='hamburger-menu'></div>*/}
             {/*</div>*/}
+            <hr className='top-section-line' />
       </>
     );
 }
