@@ -10,7 +10,7 @@ const app = express(); // Creates an express application instance
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: `${process.env.PRODUCTION_FRONTEND || process.env.LOCAL_FRONTEND}`,
     credentials: true,
     exposedHeaders: "Set-Cookie",
   })
@@ -28,8 +28,12 @@ app.post("/checkout", async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: checkoutList,
     mode: "payment",
-    success_url: "http://localhost:5173/confirmation",
-    cancel_url: "http://localhost:5173/cancel",
+    success_url: `${
+      process.env.PRODUCTION_FRONTEND || process.env.LOCAL_FRONTEND
+    }/confirmation`,
+    cancel_url: `${
+      process.env.PRODUCTION_FRONTEND || process.env.LOCAL_FRONTEND
+    }/cancel`,
   });
 
   res.send(
