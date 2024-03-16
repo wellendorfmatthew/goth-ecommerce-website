@@ -14,7 +14,7 @@ const Sections = () => {
         const getItem = async () => {
             console.log(id);
             try {
-              const response = await fetch(`http://localhost:4015/clothes/${id}`);
+              const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/${id}`);
               console.log(response, "This is the response");
       
               if (!response.ok) {
@@ -34,7 +34,7 @@ const Sections = () => {
     const addToWishList = async (name, price, image, id) => {
         const item = { name: name, id: id, image: image, price: price }
         try {
-            const wishlist = await fetch(`http://localhost:4015/user/wishlist`, {
+            const wishlist = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/wishlist`, {
                 method: "PUT",
                 body: JSON.stringify({
                     item: item

@@ -7,7 +7,7 @@ const Cart = () => {
   const checkout = async () => {
     const checkoutList = handleCheckout(); // Holds the returned checkout list from handleCheckout
     try {
-      const response = await fetch("http://localhost:4015/checkout", {
+      const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/checkout`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

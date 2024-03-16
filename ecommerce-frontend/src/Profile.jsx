@@ -44,7 +44,7 @@ const Profile = () => {
 
     const updatePassword = async(currentPassword, newPassword, confirmPassword) => {
         try {
-            const update = await fetch("http://localhost:4015/user/update/password",{
+            const update = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/update/password`,{
                 method: "PUT",
                 body: JSON.stringify({
                     currentPassword: currentPassword,
@@ -81,7 +81,7 @@ const Profile = () => {
     const updateEmail = async(newEmail) => {
         console.log("newemail", newEmail);
         try {
-            const update = await fetch("http://localhost:4015/user/update/email",{
+            const update = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/update/email`,{
                 method: "PUT",
                 body: JSON.stringify({
                     newEmail: newEmail
@@ -191,7 +191,7 @@ const Profile = () => {
 
     const deleteFromWishList = async (id) => {
         try {
-            const wishlist = await fetch(`http://localhost:4015/user/wishlist/${id}`, {
+            const wishlist = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/wishlist/${id}`, {
                 method: "DELETE",
                 credentials: 'include',
                 headers: {
@@ -223,7 +223,7 @@ const Profile = () => {
 
     const getOrders = async() => { // Works!
         try {
-            const orders = await fetch(`http://localhost:4015/user/orders`, {
+            const orders = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/orders`, {
                 credentials: 'include',
                 headers: {
                     "Content-Type": "application/json",
@@ -251,7 +251,7 @@ const Profile = () => {
 
     const updateProfilePicture = async(newPicture) => { // Probably don't need anymore since using localStorage for pictures
         try {
-            const update = await fetch("http://localhost:4015/user/picture",{
+            const update = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/picture`,{
                 method: "PUT",
                 body: JSON.stringify({
                     profilePicture: newPicture
@@ -311,7 +311,7 @@ const Profile = () => {
     useEffect(() => {
         const getProfile = async() => { // Works!
             try {
-                const response = await fetch('http://localhost:4015/user/info', {
+                const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/info`, {
                     credentials: 'include',
                     headers: {
                         "Content-Type": "application/json",

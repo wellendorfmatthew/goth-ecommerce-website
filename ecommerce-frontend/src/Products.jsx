@@ -21,7 +21,7 @@ const Products = () => {
     useEffect(() => {
         const getClothes = async () => {
             try {
-              const response = await fetch("http://localhost:4015/clothes"); // Fetches all the clothes on startup
+              const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes`); // Fetches all the clothes on startup
               console.log(response, "This is the response");
       
               if (!response.ok) {
@@ -41,7 +41,7 @@ const Products = () => {
     useEffect(() => {
         const getPrices = async () => {
             try {
-                let url = "http://localhost:4015/clothes/getPrices";
+                let url = `${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/getPrices`;
 
                 if (from !== "") { // Set a minimum value if there exists one
                     url += `?from=${from}`;
@@ -69,7 +69,7 @@ const Products = () => {
         } else { // Just retrieve all clothes if there is not minimum and maximum value
             const getAllValues = async () => {
                 try {
-                    const response = await fetch("http://localhost:4015/clothes");
+                    const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                       }
@@ -111,7 +111,7 @@ const Products = () => {
         setCheckedStock(newCheckedStock); // Use newCheckedStock instead of checkedStock to get the updated values
         
         try {
-            let url = "http://localhost:4015/clothes/getFilterStock";
+            let url = `${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/getFilterStock`;
 
             //TODO: Update to ternary operators later
             if (newCheckedStock[0]) { // Sets the stock filter to filter by those that are in stock
@@ -154,7 +154,7 @@ const Products = () => {
         setCheckedProducts(newCheckedProduct); // Use newCheckedProduct instead of checkedProduct to get the updated values
         
         try {
-            let url = "http://localhost:4015/clothes/getFilterClothes";
+            let url = `${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/getFilterClothes`;
 
             //TODO: Update to ternary operators later
             if (newCheckedProduct[0]) { // Sets a query for tops if true unless false

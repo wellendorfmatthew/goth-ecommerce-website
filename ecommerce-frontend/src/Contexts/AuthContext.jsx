@@ -19,7 +19,7 @@ const AuthProvider = ({children}) => {
 
     const handleSignUp = async (email, password) => {
         try {
-            const response = await fetch("http://localhost:4015/user/signup", {
+            const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/signup`, {
                 method: "POST",
                 body: JSON.stringify({ // Make sure to use JSON.stringify since the email and password being passed in aren't in JSON format
                     email: email,
@@ -52,7 +52,7 @@ const AuthProvider = ({children}) => {
 
     const getSession = async () => {
         try {
-            const response = await fetch("http://localhost:4015/user/session", {
+            const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/session`, {
                 credentials: 'include',
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const AuthProvider = ({children}) => {
 
     const handleSignOut = async () => {
         try {
-            const response = await fetch("http://localhost:4015/user/signout", {
+            const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/signout`, {
                 method: "POST",
                 credentials: 'include',
                 headers: {
@@ -108,7 +108,7 @@ const AuthProvider = ({children}) => {
 
     const handleLogin = async (email, password) => {
         try {
-            const response = await fetch("http://localhost:4015/user/login", {
+            const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/login`, {
                 method: "POST",
                 body: JSON.stringify({ // Make sure to use JSON.stringify since the email and password being passed in aren't in JSON format
                     email: email,
@@ -145,7 +145,7 @@ const AuthProvider = ({children}) => {
 
     const handleUpdatingWishList = async(item) => {
         try {
-            const update = await fetch("http://localhost:4015/user/wishlist",{
+            const update = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/wishlist`,{
                 method: "PUT",
                 body: JSON.stringify({
                     item: item,
@@ -168,7 +168,7 @@ const AuthProvider = ({children}) => {
 
     const handleDeletingFromWishList = async(item) => {
         try {
-            const update = await fetch(`http://localhost:4015/user/wishlist?email=${email}&item=${item}`, {
+            const update = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/wishlist?email=${email}&item=${item}`, {
                 method: "DELETE",
             })
 
@@ -188,7 +188,7 @@ const AuthProvider = ({children}) => {
 
     const addOrders = async(image, name, price) => {
         try {
-            const update = await fetch("http://localhost:4015/user/orders",{
+            const update = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/orders`,{
                 method: "PUT",
                 body: JSON.stringify({
                     image: image,

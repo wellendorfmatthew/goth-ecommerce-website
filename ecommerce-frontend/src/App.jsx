@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const getTops = async() => { // Retrieves all tops from the database
       try {
-        const response = await fetch("http://localhost:4015/clothes/getTops?clothing_type=tops");
+        const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/getTops?clothing_type=tops`);
         console.log(response, "This is the response");
 
         if (!response.ok) {
@@ -36,7 +36,7 @@ function App() {
 
     const getBottoms = async() => { // Retrieves all bottoms from the database
       try {
-        const response = await fetch("http://localhost:4015/clothes/getBottoms?clothing_type=bottoms");
+        const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/getBottoms?clothing_type=bottoms`);
         console.log(response, "This is the response");
 
         if (!response.ok) {
@@ -53,7 +53,7 @@ function App() {
 
     const getAccessories = async() => { // Retrieve all accessories from the database
       try {
-        const response = await fetch("http://localhost:4015/clothes/getAccessories?clothing_type=accessories");
+        const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/getAccessories?clothing_type=accessories`);
         console.log(response, "This is the response");
 
         if (!response.ok) {

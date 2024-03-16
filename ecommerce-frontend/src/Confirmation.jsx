@@ -15,7 +15,7 @@ const Confirmation = () => {
             })
             try {
                 console.log("this is the order ", order)
-                const response = await fetch('http://localhost:4015/user/orders', {
+                const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/orders`, {
                     method: "PUT",
                     credentials: 'include',
                     body: JSON.stringify({
