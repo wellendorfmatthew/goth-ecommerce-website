@@ -51,7 +51,9 @@ const loginUser = async (req, res) => {
 
     res.setHeader(
       "Set-Cookie",
-      `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
+      `auth=${token}; HttpOnly; Max-Age=${
+        60 * 60 * 24 * 1000
+      }; Path=/; SameSite=None; Secure`
     );
 
     res.status(200).json({ message: "Successfully logged in" });
@@ -115,7 +117,9 @@ const signupUser = async (req, res) => {
 
     res.setHeader(
       "Set-Cookie",
-      `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
+      `auth=${token}; HttpOnly; Max-Age=${
+        60 * 60 * 24 * 1000
+      }; Path=/; SameSite=None; Secure`
     );
     // res.status(200).cookie("auth", token, {
     //   httpOnly: true,
@@ -151,7 +155,10 @@ const getSession = async (req, res) => {
 
 const signOut = async (req, res) => {
   try {
-    res.setHeader("Set-Cookie", `auth=""; HttpOnly; Max-Age=0; Path=/`);
+    res.setHeader(
+      "Set-Cookie",
+      `auth=""; HttpOnly; Max-Age=0; Path=/; SameSite=None; Secure`
+    );
     res.status(200).json({ message: "Successfully signed out" });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -203,7 +210,9 @@ const updateUserEmail = async (req, res) => {
 
         res.setHeader(
           "Set-Cookie",
-          `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
+          `auth=${token}; HttpOnly; Max-Age=${
+            60 * 60 * 24 * 1000
+          }; Path=/; SameSite=None; Secure`
         );
         res.status(200).json(exists);
         console.log("Successfully updated email!");
@@ -284,7 +293,9 @@ const updatePassword = async (req, res) => {
 
           res.setHeader(
             "Set-Cookie",
-            `auth=${token}; HttpOnly; Max-Age=${60 * 60 * 24 * 1000}; Path=/;`
+            `auth=${token}; HttpOnly; Max-Age=${
+              60 * 60 * 24 * 1000
+            }; Path=/; SameSite=None; Secure`
           );
           res.status(200).json(user);
         } else {
