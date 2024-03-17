@@ -36,6 +36,10 @@ Changes committed to the Add/OrderHistory branch
 # March 15, 2024
 Changes committed to the Add/ResponsiveProfile branch
 * Adjusted the design of the sections page and profile page wishlist, personal info, and order history sections to be viewable on mobile devices
+# March 17, 2024
+* Deployed Vite frontend to Vercel and Node backend to Render
+* Adjusted env variables to align with the proper production urls for the frontend and backend
+* Adjust Set-Cookie header to include SameSite=none and Secure to enable creating and retrieving cookies between the different origins of the frontend and backend servers
 # Technologies
 * React-Handles the client side code and connects webpages
 * Express-Handles all the routing and controllers used to communicate between the front end and backend
