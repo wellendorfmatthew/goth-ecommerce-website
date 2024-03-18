@@ -5,7 +5,7 @@
       "dest": "/",
       "headers": {
         "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Origin": ["https://goth-ecommerce-website.vercel.app/", "https://goth-ecommerce-website.vercel.app/user", "https://goth-ecommerce-website.vercel.app/login", "https://goth-ecommerce-website.vercel.app/user/session"],
+        "Access-Control-Allow-Origin": "https://goth-ecommerce-website.vercel.app/, https://goth-ecommerce-website.vercel.app/user, https://goth-ecommerce-website.vercel.app/login, https://goth-ecommerce-website.vercel.app/user/session",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS"
       }
     }
