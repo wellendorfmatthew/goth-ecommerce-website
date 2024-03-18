@@ -9,16 +9,35 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": [
-            "https://goth-ecommerce-website.vercel.app/",
-            "https://goth-ecommerce-website.vercel.app/clothes",
-            "https://goth-ecommerce-website.vercel.app/user",
-            "https://goth-ecommerce-website.vercel.app/user/session",
-            "http://localhost:5173/",
-            "http://localhost:5173/clothes",
-            "http://localhost:5173/user/",
-            "http://localhost:5173/user/session"
-          ]
+          "value": "https://goth-ecommerce-website.vercel.app/"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://goth-ecommerce-website.vercel.app/clothes"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://goth-ecommerce-website.vercel.app/user"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://goth-ecommerce-website.vercel.app/user/session"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "http://localhost:5173/"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "http://localhost:5173/clothes"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "http://localhost:5173/user/"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "http://localhost:5173/user/session"
         },
         {
           "key": "Access-Control-Allow-Methods",
