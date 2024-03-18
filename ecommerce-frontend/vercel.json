@@ -7,7 +7,7 @@
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-        "Content-Type": "text/html"
+        "Content-Type": "text/html, application/json"
       }
     }
   ]
