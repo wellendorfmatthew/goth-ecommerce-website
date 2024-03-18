@@ -1,3 +1,0 @@
-{
-  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }, { "src": "/cart", "dest": "/", "status": 200 }]
-}
