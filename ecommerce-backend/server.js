@@ -20,7 +20,8 @@ app.use(
       `${process.env.LOCAL_FRONTEND}/user/session`,
       `${process.env.LOCAL_FRONTEND}/login`,
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    optionsSuccessStatus: 200,
     credentials: true,
     exposedHeaders: "Set-Cookie",
   })
