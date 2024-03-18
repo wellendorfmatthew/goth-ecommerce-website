@@ -11,7 +11,7 @@ const app = express(); // Creates an express application instance
 app.use(
   cors({
     origin: [
-      "https://goth-ecommerce-website-backend.onrender.com/",
+      // "https://goth-ecommerce-website-backend.onrender.com/",
       process.env.PRODUCTION_FRONTEND,
       `${process.env.PRODUCTION_FRONTEND}/clothes`,
       `${process.env.PRODUCTION_FRONTEND}/user`,
