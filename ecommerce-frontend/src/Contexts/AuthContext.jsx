@@ -28,7 +28,7 @@ const AuthProvider = ({children}) => {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Credentials": "true",
-                    // "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
+                    "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
                 },
                 credentials: "include",
             })
@@ -57,7 +57,7 @@ const AuthProvider = ({children}) => {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Credentials": "true",
-                    // "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
+                    "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
                 },
             });
 
@@ -88,7 +88,7 @@ const AuthProvider = ({children}) => {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Credentials": "true",
-                    // "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
+                    "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
                 },
             })
 
@@ -118,7 +118,7 @@ const AuthProvider = ({children}) => {
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Credentials": "true",
-                    // "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
+                    "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
                 },
             })
 
