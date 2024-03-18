@@ -20,6 +20,7 @@ app.use(
       `${process.env.LOCAL_FRONTEND}/user/session`,
       `${process.env.LOCAL_FRONTEND}/login`,
     ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     exposedHeaders: "Set-Cookie",
   })
