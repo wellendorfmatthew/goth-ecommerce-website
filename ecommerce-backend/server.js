@@ -11,8 +11,9 @@ const app = express(); // Creates an express application instance
 app.use(
   cors({
     origin: [
+      "https://goth-ecommerce-website.vercel.app",
       process.env.PRODUCTION_FRONTEND,
-      `${process.env.PRODUCTION_FRONTEND}/clothes/getTops?clothing_type=tops`,
+      `${process.env.PRODUCTION_FRONTEND}/clothes/`,
       `${process.env.PRODUCTION_FRONTEND}/user`,
       `${process.env.PRODUCTION_FRONTEND}/user/session`,
       process.env.LOCAL_FRONTEND,
