@@ -56,9 +56,9 @@ const AuthProvider = ({children}) => {
                 method: "GET",
                 credentials: 'include',
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/json",
                     "Access-Control-Allow-Credentials": "true",
-                    "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
+                    // "Access-Control-Allow-Origin": `${import.meta.env.VITE_PRODUCTION_FRONTEND || import.meta.env.VITE_LOCAL_FRONTEND}`,
                 },
             });
 
