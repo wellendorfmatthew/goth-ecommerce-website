@@ -147,7 +147,10 @@ const getSession = async (req, res) => {
     const decodedCookie = jwt.verify(parsedCookie, secret);
     console.log("decodedCooie ", decodedCookie);
 
-    res.setHeader("Access-Control-Request-Method", "GET");
+    // res.setHeader(
+    //   "Access-Control-Allow-Origin",
+    //   `${process.env.PRODUCTION_FRONTEND}/user`
+    // );
 
     res.status(200).json({ session: decodedCookie });
   } catch (error) {
