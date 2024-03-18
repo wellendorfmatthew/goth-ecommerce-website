@@ -8,24 +8,24 @@ const stripe = require("stripe")(process.env.STRIPE_TEST_KEY); // Require stripe
 
 const app = express(); // Creates an express application instance
 
-app.use(
-  cors({
-    origin: [
-      process.env.PRODUCTION_FRONTEND,
-      `${process.env.PRODUCTION_FRONTEND}/user`,
-      `${process.env.PRODUCTION_FRONTEND}/user/session`,
-      `${process.env.PRODUCTION_FRONTEND}/login`,
-      process.env.LOCAL_FRONTEND,
-      `${process.env.LOCAL_FRONTEND}/user/`,
-      `${process.env.LOCAL_FRONTEND}/user/session`,
-      `${process.env.LOCAL_FRONTEND}/login`,
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    optionsSuccessStatus: 200,
-    credentials: true,
-    exposedHeaders: "Set-Cookie",
-  })
-); // Allows for sharing resources between different servers
+const ALLOWED_ORIGINS = `${process.env.PRODUCTION_FRONTEND} ${process.env.PRODUCTION_FRONTEND}/user ${process.env.PRODUCTION_FRONTEND}/user/session ${process.env.PRODUCTION_FRONTEND}/login`;
+
+const customCorsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = ALLOWED_ORIGINS.split(" ");
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Request from unauthorized origin"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  optionsSuccessStatus: 200,
+  credentials: true,
+  exposedHeaders: "Set-Cookie",
+};
+
+app.use(cors(customCorsOptions)); // Allows for sharing resources between different servers
 app.use(express.json()); // Allows for the use of json data
 
 app.use("/clothes", clothesRoutes);
