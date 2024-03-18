@@ -11,19 +11,19 @@ const app = express(); // Creates an express application instance
 app.use(
   cors({
     origin: [
-      "https://goth-ecommerce-website.vercel.app/",
-      // "https://goth-ecommerce-website-backend.onrender.com/",
-      // process.env.PRODUCTION_FRONTEND,
-      // `${process.env.PRODUCTION_FRONTEND}/clothes`,
-      // `${process.env.PRODUCTION_FRONTEND}/user`,
-      // `${process.env.PRODUCTION_FRONTEND}/user/session`,
-      // process.env.LOCAL_FRONTEND,
-      // `${process.env.LOCAL_FRONTEND}/clothes`,
-      // `${process.env.LOCAL_FRONTEND}/user/`,
-      // `${process.env.LOCAL_FRONTEND}/user/session`,
+      "*",
+      process.env.PRODUCTION_FRONTEND,
+      `${process.env.PRODUCTION_FRONTEND}/clothes`,
+      `${process.env.PRODUCTION_FRONTEND}/user`,
+      `${process.env.PRODUCTION_FRONTEND}/user/session`,
+      process.env.LOCAL_FRONTEND,
+      `${process.env.LOCAL_FRONTEND}/clothes`,
+      `${process.env.LOCAL_FRONTEND}/user/`,
+      `${process.env.LOCAL_FRONTEND}/user/session`,
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true,
+    optionsSuccessStatus: 200,
     exposedHeaders: "Set-Cookie",
   })
 ); // Allows for sharing resources between different servers

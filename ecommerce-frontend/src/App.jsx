@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const getTops = async() => { // Retrieves all tops from the database
       try {
-        const response = await fetch("https://goth-ecommerce-website-backend.onrender.com/clothes/getTops?clothing_type=tops");
+        const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/clothes/getTops?clothing_type=tops`);
         console.log(response, "This is the response");
 
         if (!response.ok) {
