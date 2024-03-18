@@ -312,6 +312,7 @@ const Profile = () => {
         const getProfile = async() => { // Works!
             try {
                 const response = await fetch(`${import.meta.env.VITE_PRODUCTION_BACKEND || import.meta.env.VITE_LOCAL_BACKEND}/user/info`, {
+                    method: "GET",
                     credentials: 'include',
                     headers: {
                         "Content-Type": "application/json",
