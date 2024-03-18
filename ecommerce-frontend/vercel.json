@@ -1,14 +1,3 @@
 {
-  "routes": [
-    { "src": "/", "dest": "/" },
-    { "src": "/products", "dest": "/" },
-    { "src": "/login", "dest": "/" },
-    { "src": "/signup", "dest": "/" },
-    { "src": "/cart", "dest": "/" },
-    { "src": "/login", "dest": "/" },
-    { "src": "/about", "dest": "/" },
-    { "src": "/confirmation", "dest": "/" },
-    { "src": "/profile", "dest": "/" },
-    { "src": "/clothes/:id", "dest": "/" }
-  ]
+  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
 }
