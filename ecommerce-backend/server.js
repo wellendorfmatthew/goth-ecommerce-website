@@ -10,7 +10,7 @@ const app = express(); // Creates an express application instance
 
 app.use(
   cors({
-    origin: `${process.env.PRODUCTION_FRONTEND || process.env.LOCAL_FRONTEND}`,
+    origin: "*",
     credentials: true,
     exposedHeaders: "Set-Cookie",
   })
