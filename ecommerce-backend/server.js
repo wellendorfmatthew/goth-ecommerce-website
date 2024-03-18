@@ -10,7 +10,7 @@ const app = express(); // Creates an express application instance
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://goth-ecommerce-website.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true,
     optionsSuccessStatus: 200,
