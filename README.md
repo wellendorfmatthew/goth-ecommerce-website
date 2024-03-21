@@ -40,6 +40,11 @@ Changes committed to the Add/ResponsiveProfile branch
 * Deployed Vite frontend to Vercel and Node backend to Render
 * Adjusted env variables to align with the proper production urls for the frontend and backend
 * Adjust Set-Cookie header to include SameSite=none and Secure to enable creating and retrieving cookies between the different origins of the frontend and backend servers
+# March 21, 2024
+* Implemented search bar feature to search for items
+* Fetches products data on render then filters through the items when a user's input matches parts of the item name
+* Implemented responsiveness for all devices
+* Able to click on search bar icon to activate the text input field to start typing
 # Technologies
 * React-Handles the client side code and connects webpages
 * Express-Handles all the routing and controllers used to communicate between the front end and backend
